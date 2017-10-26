@@ -1,0 +1,54 @@
+body, html{
+    min-height: 100%;
+}
+#logged_in {
+	margin-bottom: 10px;
+}
+
+#button_grid {
+	overflow: scroll;
+	width:615px;
+}
+
+#menu_cat {
+	height: 90%;
+	text-align: center;
+	overflow: scroll;
+}
+
+#order {
+	min-width: 25%
+}
+
+#order_items {
+	height: 60%;
+	overflow: scroll;
+}
+
+.grid {
+	margin: 1.5px;
+	width: 90px;
+	height: 50px;
+}
+
+.order_b {
+	width: 100px;
+	height: 40px;
+}
+
+.category_b {
+	width: 200px;
+	height: 40px;
+	margin: 2%;
+}
+
+#bottom_buttons {
+	height: 150px;
+	margin:1%;
+}
+
+.btm_bar {
+	width: 120px;
+	height: 50px;
+	margin: 1%;
+}
