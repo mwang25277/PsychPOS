@@ -6,6 +6,7 @@ body, html{
 }
 
 #button_grid {
+	text-align: center;
 	overflow: scroll;
 	width:615px;
 }
@@ -32,13 +33,15 @@ body, html{
 }
 
 .order_b {
-	width: 100px;
+	width: 110px;
 	height: 40px;
+	margin-bottom: 1%;
+	vertical-align: center;
 }
 
 .category_b {
-	width: 200px;
-	height: 40px;
+	width: 105px;
+	height: 45px;
 	margin: 2%;
 }
 
