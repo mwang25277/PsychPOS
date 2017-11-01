@@ -9,8 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
     <!-- Custom CSS -->
     <link rel=stylesheet href="main_order.css"/>
@@ -111,11 +113,51 @@
                 <div><a>Tax:</a><a id="tax" style="float:right">$1.00</a></div>
                 <div><b><a>Total:</a><a id="total" style="float:right">$8.50</a></b></div>
                 <row align="center">
-                    <button type="button" class="btn btn-outline-dark order_b" data-toggle="modal" data-target="quantityModal">Quantity</button>
+                    <button type="button" class="btn btn-outline-dark order_b" data-toggle="modal" data-target="#quantityModal">Quantity</button>
                     <button type="button" class="btn btn-outline-dark order_b">Edit Item</button>
+                    <!-- Popup Change Quantity -->
+                    <div class="modal" id="quantityModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <h2>Edit Item Quantity</h4>
+                                <!-- Quantity body -->
+                                <div class="quantity border">
+                                    <form name="calc">
+                                        <div class = "quantity left border">
+                                            <input type="text" name="display" id="display" style="width:95%; height:40px; " disabled>
+                                            <div>
+                                                <input type="button" class="btn btn-outline-dark" value="7" onclick ="calc.display.value+=7">
+                                                <input type="button" class="btn btn-outline-dark" value="8" onclick ="calc.display.value+=8">
+                                                <input type="button" class="btn btn-outline-dark" value="9" onclick ="calc.display.value+=9">
+                                            </div>
+                                            <div>
+                                                <input type="button" class="btn btn-outline-dark" value="4" onclick ="calc.display.value+=4">
+                                                <input type="button" class="btn btn-outline-dark" value="5" onclick ="calc.display.value+=5">
+                                                <input type="button" class="btn btn-outline-dark" value="6" onclick ="calc.display.value+=6">
+                                            </div>
+                                            <div>
+                                                <input type="button" class="btn btn-outline-dark" value="1" onclick ="calc.display.value+=1">
+                                                <input type="button" class="btn btn-outline-dark" value="2" onclick ="calc.display.value+=2">
+                                                <input type="button" class="btn btn-outline-dark" value="3" onclick ="calc.display.value+=3">
+                                            </div>
+                                            <div>
+                                                <input type="button" class="btn btn-outline-dark" value="0" onclick ="calc.display.value+=0">
+                                                <input type="reset" class="btn btn-outline-dark" value="Reset" onclick ="calc.display.value==0">
+                                            </div>
+                                        </div>
+                                        <div class="quantity right">
+                                                <!-- onclick, change item quantity -->
+                                                <input type="submit" class="btn btn-outline-dark" value="Save" data-dismiss="modal">
+                                                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
                 </row>
                 <row>
-                    <button type="button" class="btn  btn-outline-dark order_b">Settle Order</button>
+                    <button type="button" class="btn btn-outline-dark order_b">Settle Order</button>
                     <button type="button" class="btn btn-outline-dark order_b">Discount</button>
                 </row>
             </div>
@@ -127,12 +169,8 @@
 
 
     </div>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="js/orders.js" type="text/javascript"></script>
 </body>
