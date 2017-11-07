@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+    <link rel=stylesheet href="modify_inventory.css"/>
+
+</head>
+
+<body>
+    <div class=container data-ng-app="psychApp" data-ng-controller="ordersCtrl"> 
+        <h1 align="center">Psychedelicatessen</h1>
+        <div class="main border">
+            <h4>Modify Inventory Item</h4>
+            <row>
+                <form id="inventory">
+                    <div class="col left">
+                        Item Name: <input type="text" name="item_name"><br><br>
+                        Item Type: <select name="item_type">
+                                        <option value="">Choose Type</option>
+                                    </select><br><br>
+                        Unit Price: <input type="text" name="unit_price"><br><br>
+                        Servings/Unit: <input type="text" name="servings_per_unit"><br><br>
+                        Cost/Serving: <input type="text" name="cost_per_serving"><br><br><br>
+                        <!-- After inventory works <input  href="inventory_main.html" type="submit" value="Submit" class="btn btn-outline-dark"> -->
+                        <div><a href="admin_home.html" role="button" class="btn btn-outline-dark">Save</a></div>
+
+                    </div>
+                    <div class="col right">
+                    Quantity On Hand: <input type="text" name="quantity_onhand"><br><br>
+                    Quantity On Order: <input type="text" name="quantity_onorder"><br><br>
+                    Notes: <input type="text" name="notes"><br><br><br><br><br><br><br>
+                    <div><a href="admin_home.html" role="button" class="btn btn-outline-dark">Cancel</a></div>    
+                </form>
+            </div>
+        </row>
+
+
+    </div>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="js/orders.js" type="text/javascript"></script>
+</body>
+
+</html>

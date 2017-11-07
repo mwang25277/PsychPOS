@@ -1,0 +1,45 @@
+.main {
+	height : 550px;
+	text-align: center;
+}
+
+.main .col {
+	width: 45%;
+}
+
+.main .left {
+	float:left;
+	text-align: right;
+}
+
+.main .right {
+	float:right;
+	text-align: right;
+	margin-right:100px;
+}
+
+input {
+	width:50%;
+}
+select {
+	width:50%;
+}
+
+#inventory {
+	margin-left: 40px;
+	margin-top: 20px;
+	height: 400px;
+}
+
+.main .left .btn {
+	width:120px;
+	margin-right:10px;
+	height: 40px;
+}
+
+.main .right .btn {
+	width:120px;
+	margin-top:10px;
+	margin-right:200px;
+	height: 40px;
+}
