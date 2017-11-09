@@ -83,3 +83,41 @@ body, html{
 #quantityModal {
 	height: 500px;
 }
+
+#modifierpage{
+	padding-top:5%;
+}
+
+#modlist{
+	height:6em;
+	border: 1px solid lightgrey;
+	overflow: scroll;
+	margin:1%;
+}
+
+#ingmenu{
+	border: 1px solid lightgrey;
+	overflow: scroll;
+	text-align: center;
+	margin-top:1%;
+	margin-bottom:1%;
+	margin-right:1%;
+}
+
+#catmenu{
+	border: 1px solid lightgrey;
+	overflow: scroll;
+	text-align: center;
+	margin-top:1%;
+	margin-bottom:1%;
+	margin-left:1%;
+}
+
+.mcat{
+	width:75px;
+}
+
+#ovalue{
+	padding-top:10px;
+	padding-bottom:10px;
+}
