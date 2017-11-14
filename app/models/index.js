@@ -4,12 +4,12 @@ var fs        = require("fs");
 var path      = require("path");
 var Sequelize = require("sequelize");
 
-const sequelize = new Sequelize('psychPOS', 'team9', 'mitrfall17', {
+const sequelize = new Sequelize('psychPOS', 'team9', 'mitrfall17', { 
   host: "psychpos.cma6st4fitis.us-east-2.rds.amazonaws.com",
-  dialect: 'mysql',
+  dialect: 'mysql'
 });
 
-var db        = {};
+var db = {};
 
 fs
   .readdirSync(__dirname)

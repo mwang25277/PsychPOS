@@ -2,13 +2,18 @@
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
+var morgan = require('morgan');
+var methodOverride = require('method-override');
 
 //used to parse request data
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(express.static(__dirname + '/public')); 		    // set the static files location /public/img will be /img for users
+
+app.use(morgan('dev'));                                        	    // log every request to the console
+app.use(bodyParser.urlencoded({'extended':'true'}));                // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());                                         // parse application/json
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));     // parse application/vnd.api+json as json
+app.use(methodOverride()); 
 
 var mysql = require('mysql');
 
@@ -60,21 +65,22 @@ var models = require('./app/models');
 //   console.log(users);
 // });
 
-app.use(express.static(__dirname + '/public'));
-
 models.sequelize
   .authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
-	app.listen(3000, function() {
-		console.log("Listening");
-	});
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
 
+//routes
 
+require('./app/routes')(app);
+
+app.listen(3000, function() {
+	console.log("Listening");
+});
 
 
 // con.connect(function(err) {
@@ -90,10 +96,6 @@ models.sequelize
 //     	console.log(result);
 //   });
 // });
-
-//routes
-
-require('./app/routes')(app);
 
 
 exports = module.exports = app;
