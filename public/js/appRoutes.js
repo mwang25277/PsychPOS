@@ -43,6 +43,11 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'adminLoginController'
         });
 
+        .when('/recall_order', {
+            templateUrl: 'views/recall_order.html',
+            controller: 'adminLoginController'
+        });
+
     $locationProvider.html5Mode(true);
 
 }]);
