@@ -18,6 +18,11 @@
 	margin-right:100px;
 }
 
+#categories {
+	height: 70%;
+	overflow: scroll;
+}
+
 input {
 	width:50%;
 }
@@ -42,4 +47,27 @@ select {
 	margin-top:10px;
 	margin-right:200px;
 	height: 40px;
+}
+
+.inv {
+	margin-left:2.5%;
+	margin-right:2.5%;
+	margin-top:10px;
+	height:500px; 
+	width:95%;
+}
+
+.inv .btn {
+	width:150px;
+	height: 50px;
+	margin-top:20px;
+	margin-left:40px;
+	align:center;
+}
+
+.bottom .btn {
+	width:150px;
+	height: 50px;
+	margin-top:20px;
+	margin-left:40px;
 }

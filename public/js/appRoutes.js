@@ -41,11 +41,14 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
         .when('/admin_login', {
             templateUrl: 'views/admin_login.html',
             controller: 'adminLoginController'
-        });
+        })
 
         .when('/recall_order', {
             templateUrl: 'views/recall_order.html',
-            controller: 'adminLoginController'
+        })
+
+        .when('/inventory', {
+            templateUrl: 'views/inventory.html',
         });
 
     $locationProvider.html5Mode(true);

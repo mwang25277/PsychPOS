@@ -1,0 +1,42 @@
+<div class=container data-ng-app="psychApp" data-ng-controller="ordersCtrl"> 
+    <h1 align="center">Psychedelicatessen</h1>
+    <div class="border row" style="height:650px;">
+        <div class="row inv">
+            <div class="col-md-3 border">
+                <h3 align="center">Categories</h3>
+                <div id="categories" class="border">
+                </div>
+                <a href="#" role="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#categoryModal">New Category</a>
+                <div class="modal" id="categoryModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form>
+                                <br>
+                                Enter Category Name:  <input type="text" name="username"><br>
+                                <br>
+                                <div class="row">
+                                    <input type="submit" class="btn btn-outline-dark" value="Save" data-dismiss="modal">
+                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-8 border">
+                <div class="row border" style="height:40px;overflow:scroll;">
+                    <div class="col-md-4">Item</div>
+                    <div class="col-md-4">Unit Price</div>
+                    <div class="col-md-4">Quantity On Hand</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom row">
+            <a href="/admin_home" role="button" class="btn btn-outline-dark">Back</a>
+            <a href="/modify_inventory" role="button" class="btn btn-outline-dark">Edit Item</a>
+            <a href="/modify_inventory" role="button" class="btn btn-outline-dark">Add Item</a>
+        </div>
+    </div>    
+</div>
