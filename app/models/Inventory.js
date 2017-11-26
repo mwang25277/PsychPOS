@@ -22,7 +22,15 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		quantity_on_hand: {
 			type: DataTypes.INTEGER(11),
-			allowNull: false
+			allowNull: true
+		},
+		inventory_cat_id: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			references: {
+				model: 'InventoryCategory',
+				key: 'id'
+			}
 		}
 	}, {
 		tableName: 'Inventory',

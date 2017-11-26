@@ -1,26 +1,41 @@
-    <div class=container data-ng-app="psychApp" data-ng-controller="ordersCtrl"> 
+    <div class=container> 
         <h1 align="center">Psychedelicatessen</h1>
         <row>
         <div class="main border">
             <h4>Modify Inventory Item</h4>
                 <form id="inventory">
-                    <div class="col left">
-                        Item Name: <input type="text" name="item_name"><br><br>
-                        Item Type: <select name="item_type">
+                    <div class="form-group">
+                        Item Name: <input type="text" name="item_name" ng-model="inventoryName" required>
+                    </div>
+                    <div class="form-group">
+                        Category: <input type="text" name="category" readonly ng-model="inventoryCategory">
+                    </div>
+                    <div class="form-group">
+                        Serving Size: <input type="text" name="servingSize" ng-model="servingSize" required>
+                    </div>
+                    <div class="form-group">
+                        Quantity On Hand: <input type="number" min="0" name="quantity_onhand" ng-model="quantity_onhand" required>
+                    </div>
+                    <div class="form-group">
+                        Quantity Needed: <input type="number" min="0" name="quantity_onorder" ng-model="quantity_needed" required>
+                    </div>
+                    <a href="/inventory" role="button" class="btn btn-outline-dark" ng-click="addInventory()">Save</a>
+                    <a href="/inventory" role="button" class="btn btn-outline-dark">Cancel</a>
+
+                        <!-- Category: <select name="item_type">
                                         <option value="">Choose Type</option>
                                     </select><br><br>
-                        Unit Price: <input type="text" name="unit_price"><br><br>
-                        Servings/Unit: <input type="text" name="servings_per_unit"><br><br>
+                        Serving Size: <input type="text" name="servings_per_unit"><br><br>
                         Cost/Serving: <input type="text" name="cost_per_serving"><br><br><br>
-                        <!-- After inventory works <input  href="inventory_main.html" type="submit" value="Submit" class="btn btn-outline-dark"> -->
-                        <div><a href="/inventory" role="button" class="btn btn-outline-dark">Save</a></div>
+                        After inventory works <input  href="inventory_main.html" type="submit" value="Submit" class="btn btn-outline-dark">
+                        Quantity On Hand: <input type="text" name="quantity_onhand">
+                        Quantity On Order: <input type="text" name="quantity_onorder"> -->
 
-                    </div>
+                   <!--  </div>
                     <div class="col right">
-                    Quantity On Hand: <input type="text" name="quantity_onhand"><br><br>
-                    Quantity On Order: <input type="text" name="quantity_onorder"><br><br>
-                    Notes: <input type="text" name="notes"><br><br><br><br><br><br><br>
-                    <div><a href="/inventory" role="button" class="btn btn-outline-dark">Cancel</a></div>    
+                    
+                    Notes: <input type="text" name="notes">
+                    <div></div>   -->  
                 </form>
             </div>
         </row>

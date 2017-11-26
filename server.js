@@ -44,7 +44,7 @@ var models = require('./app/models');
 // var auto = new SequelizeAuto('psychPOS', 'team9', 'mitrfall17', {
 //     host: "psychpos.cma6st4fitis.us-east-2.rds.amazonaws.com",
 //     dialect: 'mysql',
-//     directory: "./models", // prevents the program from writing to disk
+//     directory: "./app/models", // prevents the program from writing to disk
 //     port: '3306',
 //     additional: {
 //         timestamps: false

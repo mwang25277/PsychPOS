@@ -1,7 +1,7 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('OpenOrders', {
+	return sequelize.define('OpenOrder', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		}
 	}, {
-		tableName: 'OpenOrders',
+		tableName: 'OpenOrder',
 		timestamps: false
 	});
 };

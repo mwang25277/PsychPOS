@@ -1,19 +1,22 @@
 /* jshint indent: 1 */
 
 module.exports = function(sequelize, DataTypes) {
-	return sequelize.define('ModifierCategory', {
+	return sequelize.define('Discount', {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
 		name: {
-			type: DataTypes.STRING(25),
+			type: DataTypes.STRING(45),
+			allowNull: false
+		},
+		amount: {
+			type: DataTypes.FLOAT,
 			allowNull: false
 		}
 	}, {
-		tableName: 'ModifierCategory',
+		tableName: 'Discount',
 		timestamps: false
 	});
 };

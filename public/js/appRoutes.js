@@ -49,6 +49,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
         .when('/inventory', {
             templateUrl: 'views/inventory.html',
+            controller: 'inventoryController'
         });
 
     $locationProvider.html5Mode(true);
