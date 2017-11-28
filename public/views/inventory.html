@@ -6,7 +6,7 @@
                 <h3 align="center">Categories</h3>
                 <div id="categories" class="border">
                     <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-outline-dark categoryButtons" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
+                        <button type="button" class="btn btn-outline-dark categoryButtons" style="margin-left:40px; margin-bottom:8px;border-radius:3px;"ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
                     </div>
                 </div>
                 <a href="#" role="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#categoryModal">New Category</a>

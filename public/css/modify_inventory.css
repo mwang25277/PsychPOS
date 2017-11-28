@@ -7,6 +7,17 @@
 	width: 45%;
 }
 
+.form-group label {
+	text-align:right;
+	width:150px;
+	margin-bottom: 25px;
+}
+
+.form-group input {
+	margin-left: 10px;
+	width:300px;
+}
+
 .main .left {
 	float:left;
 	text-align: right;
@@ -31,7 +42,6 @@ select {
 }
 
 #inventory {
-	margin-left: 40px;
 	margin-top: 20px;
 	height: 400px;
 }
