@@ -7,15 +7,33 @@
 	width: 45%;
 }
 
-.form-group label {
+#inventory label {
 	text-align:right;
 	width:150px;
 	margin-bottom: 25px;
 }
 
-.form-group input {
+#inventory input {
 	margin-left: 10px;
 	width:300px;
+}
+
+#account_form input {
+	margin-left: 10px;
+	width:300px;
+}
+
+#account_form input[type=radio] {
+	margin-left: 10px;
+	width:20px;
+}
+
+#account_form label {
+	text-align:right;
+	width:150px;
+	margin-bottom: 25px;
+}
+
 }
 
 .main .left {
@@ -37,6 +55,7 @@
 input {
 	width:50%;
 }
+
 select {
 	width:50%;
 }
@@ -81,3 +100,4 @@ select {
 	margin-top:20px;
 	margin-left:40px;
 }
+

@@ -47,6 +47,14 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/recall_order.html',
         })
 
+        .when('/accounts', {
+            templateUrl: 'views/accounts.html',
+        })
+
+        .when('/modify_account', {
+            templateUrl: 'views/modify_account.html',
+        })
+
         .when('/inventory', {
             templateUrl: 'views/inventory.html',
             controller: 'inventoryController'
