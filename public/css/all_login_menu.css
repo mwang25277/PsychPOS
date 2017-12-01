@@ -1,16 +1,21 @@
 body, html{
+	background-color: rgb(242, 251, 255);
     min-height: 100%;
 }
 
-.main .btn {
+h1 {
+	font-family: 'Gochi Hand', cursive;
+}
+
+
+
+.btn {
+	background-color: rgb(249, 249, 249);
 	width: 150px;
 	height: 50px;
 	margin-bottom: 2%;
 	margin-left: 20px;
-}
-
-.main {
-	margin-top: 5vh;
+	border-width: 2px;
 }
 
 input[type="submit"]{

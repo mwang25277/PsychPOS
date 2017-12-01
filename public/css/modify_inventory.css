@@ -1,6 +1,15 @@
 .main {
 	height : 550px;
 	text-align: center;
+	margin-top: 5vh;
+}
+
+.border {
+	border-color: black;
+}
+
+.row {
+	background-color: white;
 }
 
 .main .col {
@@ -99,5 +108,9 @@ select {
 	height: 50px;
 	margin-top:20px;
 	margin-left:40px;
+}
+
+.row .bottom {
+	margin-left: 100px;
 }
 
