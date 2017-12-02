@@ -65,6 +65,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             templateUrl: 'views/modify_account.html',
         })
 
+        .when('/modifier_template', {
+            templateUrl: 'views/modifier_template.html',
+        })
+
         .when('/inventory', {
             templateUrl: 'views/inventory.html',
             controller: 'inventoryController'
