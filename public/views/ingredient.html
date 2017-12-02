@@ -9,22 +9,6 @@
                         <button type="button" class="btn btn-outline-dark categoryButtons" style="margin-left:40px; margin-bottom:8px;border-radius:3px;" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
                     </div>
                 </div>
-                <a href="#" role="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#categoryModal">New Category</a>
-                <div class="modal" id="categoryModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <form>
-                                <br>
-                                Enter Category Name:  <input type="text" name="username" ng-model="categoryName"><br>
-                                <br>
-                                <div class="row" style="margin:10px;">
-                                    <input type="submit" class="btn btn-outline-dark" value="Save" data-dismiss="modal" ng-click="addCategory()">
-                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>   
             </div>
             <div class="col-md-1" style="background-color:rgb(188, 188, 188);">
             </div>
@@ -35,17 +19,21 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Serving Size</th>
-                            <th>Quantity On Hand</th>
-                            <th>Quantity Needed</th>
+                            <th>Price</th>
+                            <th>No</th>
+                            <th>Extra</th>
+                            <th>Half</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="invItem" ng-repeat="x in inventory" title="{{$index}}" ng-click="selectInvItem($event)">
+                        <tr class="ingItem" ng-repeat="x in ingredients" title="{{$index}}" ng-click="selectIngItem($event)">
                             <th scope="row">{{x.id}}</th>
                             <td>{{x.name}}</td>
                             <td>{{x.serving_size}}</td>
-                            <td>{{x.quantity_on_hand}}</td>
-                            <td>{{x.quantity_needed}}</td>
+                            <td>{{x.price}}</td>
+                            <td>{{x.noCost}}</td>
+                            <td>{{x.extraCost}}</td>
+                            <td>{{x.halfCost}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -54,8 +42,8 @@
         <div class="bottom row" style="background-color:rgb(188, 188, 188);">
             <a href="/admin_home" role="button" class="btn btn-outline-dark">Back</a>
             <!-- <a href="/modify_inventory" role="button" class="btn btn-outline-dark" ng-click="deleteCategory()">Delete Category</a> -->
-            <a href="/modify_inventory" role="button" class="btn btn-outline-dark" ng-click="editItem()">Edit Item</a>
-            <a href="/modify_inventory" role="button" class="btn btn-outline-dark" ng-click="addItem()">Add Item</a>
+            <a href="/modify_ingredient" role="button" class="btn btn-outline-dark" ng-click="editItem()">Edit Item</a>
+            <a href="/modify_ingredient" role="button" class="btn btn-outline-dark" ng-click="addItem()">Add Item</a>
         </div>
     </div>    
 </div>

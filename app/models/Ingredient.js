@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
 		id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		name: {
 			type: DataTypes.STRING(45),
@@ -36,24 +37,34 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
 		hasNo: {
-			type: DataTypes.INTEGER(4),
+			type: DataTypes.BOOLEAN,
 			allowNull: false,
-			defaultValue: '0'
+			defaultValue: 0
 		},
 		noCost: {
 			type: DataTypes.FLOAT,
 			allowNull: true,
-			defaultValue: '0'
+			defaultValue: 0.0
 		},
 		hasExtra: {
-			type: DataTypes.INTEGER(4),
+			type: DataTypes.BOOLEAN,
 			allowNull: false,
-			defaultValue: '0'
+			defaultValue: 0
 		},
 		extraCost: {
 			type: DataTypes.FLOAT,
 			allowNull: true,
-			defaultValue: '0'
+			defaultValue: 0.0
+		},
+		hasHalf: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: 0
+		},
+		halfCost: {
+			type: DataTypes.FLOAT,
+			allowNull: true,
+			defaultValue: 0.0
 		}
 	}, {
 		tableName: 'Ingredient',

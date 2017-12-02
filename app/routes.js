@@ -20,6 +20,10 @@ module.exports = function(app) {
 
 	});
 
+	/***********************************
+		Inventory
+	************************************/
+
 	app.post('/addInvCategory', function(req, res) {
 		console.log(req.query.name);
 		models.InventoryCategory.create({
@@ -80,6 +84,68 @@ module.exports = function(app) {
 			});
 		}
 	});
+
+
+
+	/***********************************
+		Ingredients
+	************************************/
+
+	app.get('/getIngItem', function(req, res) {
+		models.Ingredient.findAll({ where: {inventory_cat_id: req.query.invCatID }}).then(function(ingredients) {
+			if(ingredients == null) {
+				res.send("Doesn't exist");
+			}
+			else {
+				res.send(ingredients);
+			}
+
+		});
+	});
+
+	app.get('/getInvItemByID', function(req, res) {
+		models.Inventory.findOne({ where: {id: req.query.invID }}).then(function(inventory) {
+			if(inventory == null) {
+				res.send("Doesn't exist");
+			}
+			else {
+				res.send(inventory);
+			}
+
+		});
+	});
+
+	app.post('/addIngredient', function(req, res) {
+		console.log(req.query);
+		if(req.query.id == 0) {
+			delete req.query.id;
+			models.Ingredient.create(req.query).then(function(response) {
+				if(response == null) {
+					res.send("Error");
+				}
+				else {
+					res.send(response);
+				}
+
+			});
+		}
+		else {
+			models.Ingredient.upsert(req.query).then(function(response) {
+				if(response == false) {
+					res.send("Upsert success");
+				}
+				else {
+					res.send(response);
+				}
+
+			});
+		}
+	});
+
+
+
+
+
 
 	app.post('/getMenuItem', function(req, res) {
 		console.log(req.query.row);

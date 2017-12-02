@@ -85,18 +85,18 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   	$rootScope.inventoryCategory = {id: $event.currentTarget.value, name: $event.currentTarget.innerHTML};
 
   	$http({
-		url: "/getInvItem",
-		method: 'get',
-		params: { invCatID: $event.currentTarget.value }
-	}).then(function(response) {
-		if(response.data != null && response.data != "") {
-			console.log(response.data);
-			$scope.inventory = response.data;
-		}
-		else {
-			$scope.inventory = [];
-		}
-	});
+  		url: "/getInvItem",
+  		method: 'get',
+  		params: { invCatID: $event.currentTarget.value }
+  	}).then(function(response) {
+  		if(response.data != null && response.data != "") {
+  			console.log(response.data);
+  			$scope.inventory = response.data;
+  		}
+  		else {
+  			$scope.inventory = [];
+  		}
+  	});
 
   }
 

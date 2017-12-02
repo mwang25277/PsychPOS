@@ -34,6 +34,16 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'modifyInventoryController'
         })
 
+        .when('/modify_ingredient', {
+            templateUrl: 'views/modify_ingredient.html',
+            controller: 'modifyIngredientController'
+        })
+
+        .when('/ingredient', {
+            templateUrl: 'views/ingredient.html',
+            controller: 'ingredientController'
+        })
+
         .when('/admin_home', {
             templateUrl: 'views/admin_home.html'
         })
