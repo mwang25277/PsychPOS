@@ -1,1 +1,1 @@
-angular.module('psychApp', ['ngRoute', 'appRoutes', 'homeCtrl', 'employeeLoginCtrl', 'employeeHomeCtrl', 'editMealCtrl', 'mainOrderCtrl', 'modifyInventoryCtrl', 'adminLoginCtrl', 'loginService', 'inventoryCtrl', 'ingredientCtrl', 'modifyIngredientCtrl']);
+angular.module('psychApp', ['ngRoute', 'appRoutes', 'homeCtrl', 'employeeLoginCtrl', 'employeeHomeCtrl', 'editMealCtrl', 'mainOrderCtrl', 'modifyInventoryCtrl', 'adminLoginCtrl', 'loginService', 'inventoryCtrl', 'ingredientCtrl', 'modifyIngredientCtrl', 'modifierTemplateCtrl']);

@@ -37,34 +37,34 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		},
 		hasNo: {
-			type: DataTypes.BOOLEAN,
+			type: DataTypes.INTEGER(1),
 			allowNull: false,
-			defaultValue: 0
+			defaultValue: '0'
 		},
 		noCost: {
 			type: DataTypes.FLOAT,
 			allowNull: true,
-			defaultValue: 0.0
+			defaultValue: '0'
 		},
 		hasExtra: {
-			type: DataTypes.BOOLEAN,
+			type: DataTypes.INTEGER(1),
 			allowNull: false,
-			defaultValue: 0
+			defaultValue: '0'
 		},
 		extraCost: {
 			type: DataTypes.FLOAT,
 			allowNull: true,
-			defaultValue: 0.0
+			defaultValue: '0'
 		},
 		hasHalf: {
-			type: DataTypes.BOOLEAN,
+			type: DataTypes.INTEGER(1),
 			allowNull: false,
-			defaultValue: 0
+			defaultValue: '0'
 		},
 		halfCost: {
 			type: DataTypes.FLOAT,
 			allowNull: true,
-			defaultValue: 0.0
+			defaultValue: '0'
 		}
 	}, {
 		tableName: 'Ingredient',

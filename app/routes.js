@@ -142,7 +142,37 @@ module.exports = function(app) {
 		}
 	});
 
+	/***********************************
+		Modifier Template
+	************************************/
 
+	app.get('/getTemplateNames', function(req, res) {
+		models.ModifierTemplate.findAll({}).then(function(templates) {
+			if(templates == null) {
+				res.send([]);
+			}
+			else {
+				res.send(templates);
+			}
+
+		});
+	});
+
+	app.get('/getRemainingIngredients', function(req, res) {
+		models.Ingredient.findAll({where:
+			{
+				
+			}
+		}).then(function(templates) {
+			if(templates == null) {
+				res.send([]);
+			}
+			else {
+				res.send(templates);
+			}
+
+		});
+	});
 
 
 

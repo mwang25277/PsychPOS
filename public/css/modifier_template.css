@@ -1,0 +1,15 @@
+.ingButton {
+	width: 130px;
+	height: 65px;
+	margin: 2%;
+}
+
+.catButton {
+	width: 130px;
+	height: 65px;
+	margin: 2%;
+}
+
+#modTempCats {
+	width: 100%;
+}
