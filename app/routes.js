@@ -161,14 +161,14 @@ module.exports = function(app) {
 	app.get('/getRemainingIngredients', function(req, res) {
 		models.Ingredient.findAll({where:
 			{
-				
+
 			}
-		}).then(function(templates) {
-			if(templates == null) {
+		}).then(function(ingredients) {
+			if(ingredients == null) {
 				res.send([]);
 			}
 			else {
-				res.send(templates);
+				res.send(ingredients);
 			}
 
 		});

@@ -96,19 +96,19 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
 
     	$scope.currentCategory = {id: $($event.currentTarget).val(), name: $($event.currentTarget).html()};
 
-    	$http({
-		    url: "/getRemainingIngredients",
-		    method: 'get',
-		    params: { selectedIngredients: $scope.selectedIngredients, category_id = $scope.currentCategory.id }
-	    }).then(function(response) {
-		    if(response.data != null && response.data != "") {
-			  console.log(response.data);
-			  $scope.availableIngredients = response.data;
-		    }
-		    else {
-			  $scope.availableIngredients = [];
-		    }
-	    });
+    	// $http({
+		   //  url: "/getRemainingIngredients",
+		   //  method: 'get',
+		   //  params: { selectedIngredients: $scope.selectedIngredients, category_id = $scope.currentCategory.id }
+	    // }).then(function(response) {
+		   //  if(response.data != null && response.data != "") {
+			  // console.log(response.data);
+			  // $scope.availableIngredients = response.data;
+		   //  }
+		   //  else {
+			  // $scope.availableIngredients = [];
+		   //  }
+	    // });
     }
   };
 
