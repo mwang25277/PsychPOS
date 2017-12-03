@@ -1,9 +1,9 @@
     <div class=container> 
-        <h1 align="center">Psychedelicatessen</h1>
+        <h1 align="left">Psychedelicatessen</h1>
         <row>
-        <div class="main border border-dark rounded" style="background-color:#fdf9f5;">
-            <h4>Modify Inventory Item</h4>
-                <form id="ingredient">
+        <div class="main border border-dark rounded" style="background-color:#f4f4f4;">
+            <h4>Modify Ingredient</h4>
+                <form id="ingredient" class="ingred_form">
                     <div class="form-group">
                         <label>Item Name:</label> <input type="text" name="item_name" ng-model="ingredientName" required>
                     </div>
@@ -22,15 +22,15 @@
                     </div>
                     <div class="form-group">
                         <label>No:</label> <input type="checkbox" name="hasNo" ng-model="hasNo">
-                        <label>Cost: $</label> <input type="number" min="0.0" step="0.01" name="noCost" ng-model="noCost" ng-show="hasNo">
+                        <label for="number">Cost: $</label> <input type="number" min="0.0" step="0.01" name="noCost" ng-model="noCost" ng-show="hasNo">
                     </div>
                     <div class="form-group">
                         <label>Extra:</label> <input type="checkbox" name="hasExtra" ng-model="hasExtra">
-                        <label>Cost: $</label> <input type="number" min="0.0" step="0.01" name="extraCost" ng-model="extraCost" ng-show="hasExtra">
+                        <label for="number">Cost: $</label> <input type="number" min="0.0" step="0.01" name="extraCost" ng-model="extraCost" ng-show="hasExtra">
                     </div>
                     <div class="form-group">
                         <label>Half:</label> <input type="checkbox" name="hasHalf" ng-model="hasHalf">
-                        <label>Cost: $</label> <input type="number" min="0.0" step="0.01" name="halfCost" ng-model="halfCost" ng-show="hasHalf">
+                        <label for="number">Cost: $</label> <input type="number" min="0.0" step="0.01" name="halfCost" ng-model="halfCost" ng-show="hasHalf">
                     </div>
                     <a href="/ingredient" role="button" class="btn btn-outline-dark" ng-click="addIngredient()">Save</a>
                     <a href="/ingredient" role="button" class="btn btn-outline-dark">Cancel</a>

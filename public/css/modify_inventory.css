@@ -8,12 +8,49 @@
 	border-color: black;
 }
 
+.inv_table {
+	font-size:14px;
+}
+
 .row {
 	background-color: white;
 }
 
 .main .col {
 	width: 45%;
+}
+
+.categoryButtons {
+	background-color: #e3f4fc;
+}
+
+.ingred_form input[type=checkbox] {
+	width:20px;
+	margin-right: 10px;
+}
+
+.ingred_form input[type=number] {
+	width:150px;
+}
+
+.ingred_form input[type=text], input[type=select] {
+	width:300px;
+}
+
+.ingred_form select {
+	width:300px;
+}
+
+.ingred_form label {
+	text-align: right;
+	width:110px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.ingred_form label[for=number] {
+	width:60px;
+	margin-left: 50px;
 }
 
 #inventory label {
@@ -57,7 +94,7 @@
 }
 
 #categories {
-	height: 70%;
+	height: 80%;
 	overflow: scroll;
 }
 
@@ -91,7 +128,7 @@ select {
 	margin-left:2.5%;
 	margin-right:2.5%;
 	margin-top:10px;
-	height:500px; 
+	height:550px; 
 	width:95%;
 }
 
@@ -112,5 +149,9 @@ select {
 
 .row .bottom {
 	margin-left: 100px;
+}
+
+.new_cat .btn{
+	margin-top: 1px;
 }
 

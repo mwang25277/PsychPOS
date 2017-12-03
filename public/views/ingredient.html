@@ -1,18 +1,18 @@
 <div class=container> 
-    <h1 align="center">Psychedelicatessen</h1>
-    <div class="border border-dark rounded row" style="height:650px;background-color:rgb(188, 188, 188);">
+    <h1 align="left">Psychedelicatessen</h1>
+    <div class="rounded row" style="height:650px;background-color:#005491;border-width:2px;">
         <div class="row inv">
-            <div class="col-md-3 border border-dark" style="background-color:#fdf9f5;">
+            <div class="col-md-3" style="background-color:#f9f9f9;">
                 <h3 align="center">Categories</h3>
-                <div id="categories" class="border border-dark" style="background-color:white;">
+                <div id="categories" class="rounded" style="background-color:#f9f9f9;">
                     <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-outline-dark categoryButtons" style="margin-left:40px; margin-bottom:8px;border-radius:3px;" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
+                        <button type="button" class="btn btn-outline-dark categoryButtons" style="margin-left:17px; margin-bottom:8px;border-radius:3px;" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-1" style="background-color:rgb(188, 188, 188);">
+            <div class="col-md-1" style="background-color:#005491;">
             </div>
-            <div class="col-md-8 border border-dark" style="background-color:#fdf9f5;">
+            <div class="col-md-8" style="background-color:#f9f9f9;">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -39,7 +39,7 @@
                 </table>
             </div>
         </div>
-        <div class="bottom row" style="background-color:rgb(188, 188, 188);">
+        <div class="bottom row" style="background-color:#005491;">
             <a href="/admin_home" role="button" class="btn btn-outline-dark">Back</a>
             <!-- <a href="/modify_inventory" role="button" class="btn btn-outline-dark" ng-click="deleteCategory()">Delete Category</a> -->
             <a href="/modify_ingredient" role="button" class="btn btn-outline-dark" ng-click="editItem()">Edit Item</a>

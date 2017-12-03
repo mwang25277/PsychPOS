@@ -1,21 +1,25 @@
 body, html{
-	background-color: rgb(242, 251, 255);
+	background-color: #e5f7ff;
+	color:#3f3f3f;
     min-height: 100%;
+    font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
 	font-family: 'Gochi Hand', cursive;
+	color:#3f3f3f;
 }
 
 
-
 .btn {
-	background-color: rgb(249, 249, 249);
+	background-color: #fefffc;
 	width: 150px;
 	height: 50px;
 	margin-bottom: 2%;
 	margin-left: 20px;
 	border-width: 2px;
+	border-color: #686868;
+	color: #3f3f3f;
 }
 
 input[type="submit"]{
