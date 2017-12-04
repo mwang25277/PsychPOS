@@ -16,14 +16,6 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.FLOAT,
 			allowNull: false
 		},
-		hasNo: {
-			type: DataTypes.INTEGER(4),
-			allowNull: false
-		},
-		hasExtra: {
-			type: DataTypes.INTEGER(4),
-			allowNull: false
-		},
 		row: {
 			type: DataTypes.INTEGER(3),
 			allowNull: true
@@ -32,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER(3),
 			allowNull: true
 		},
-		category: {
+		category_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			references: {
@@ -40,9 +32,17 @@ module.exports = function(sequelize, DataTypes) {
 				key: 'id'
 			}
 		},
+		modifier_template_id: {
+			type: DataTypes.INTEGER(11),
+			allowNull: true,
+			references: {
+				model: 'ModifierTemplate',
+				key: 'id'
+			}
+		},
 		color: {
 			type: DataTypes.STRING(45),
-			allowNull: false
+			allowNull: true
 		}
 	}, {
 		tableName: 'MenuItem',

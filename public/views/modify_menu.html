@@ -1,0 +1,57 @@
+    <div class=container> 
+        <h1 align="left">Psychedelicatessen</h1>
+        <row>
+        <div class="main borders rounded" style="background-color:#f4f4f4;">
+            <h4>Modify Menu Item</h4>
+                <form id="inventory">
+                    <div class="form-group">
+                        <label>Menu Item Name:</label> <input type="text" name="item_name" ng-model="menuItemName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Category:</label> <input type="text" name="category" readonly ng-model="menuItemCategory">
+                    </div>
+                    <div class="form-group">
+                        <label>Price:</label> <input type="text" name="servingSize" ng-model="servingSize" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Color:</label> <input type="color" name="buttonColor" ng-model="buttonColor" required>
+                    </div>
+                    <div class="form-inline" id="addRemoveIng">
+                        <div class="col-md-2">
+                            <label for="ingredientCat">Category</label>
+                            <select name="ingredientCat" ng-model="ingredientCat" ng-options="category as category.name for category in categories" size="4" ng-change="ingSelected(ingredientCat)"></select>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="availableIng">Ingredients</label>                                
+                            <select name="availableIng" size="4" multiple ng-model="selectedIng" ng-options="ingredient as ingredient.name for ingredient in availableIngredients" style="width: 200px"></select>
+                        </div>
+                        <div class="col-md-2">         
+                            <input id="moveright" type="button" value="Add >>" ng-click="addItem(selectedIng[0])" style="width: 150px" />
+                            <input id="move left" type="button" value="<< Remove" ng-click="removeItem()" style="width: 150px" />    
+                        </div>
+                        <div class="col-md-2">
+                            <label for="sclients">Selected Ingredients</label>                                                    
+                            <select size="4" ng-model="selectedMenuIng" ng-options="ingredientA as ingredientA.name for ingredientA in ingredients" style="width: 200px"></select>
+                        </div>
+                    </div>
+                    <a href="/inventory" role="button" class="btn btn-outline-dark" ng-click="addInventory()">Save</a>
+                    <a href="/inventory" role="button" class="btn btn-outline-dark">Cancel</a>
+
+                        <!-- Category: <select name="item_type">
+                                        <option value="">Choose Type</option>
+                                    </select><br><br>
+                        Serving Size: <input type="text" name="servings_per_unit"><br><br>
+                        Cost/Serving: <input type="text" name="cost_per_serving"><br><br><br>
+                        After inventory works <input  href="inventory_main.html" type="submit" value="Submit" class="btn btn-outline-dark">
+                        Quantity On Hand: <input type="text" name="quantity_onhand">
+                        Quantity On Order: <input type="text" name="quantity_onorder"> -->
+
+                   <!--  </div>
+                    <div class="col right">
+                    
+                    Notes: <input type="text" name="notes">
+                    <div></div>   -->  
+                </form>
+            </div>
+        </row>
+    </div>

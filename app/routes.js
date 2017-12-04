@@ -1,5 +1,6 @@
 var models = require('./models');
-
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 module.exports = function(app) {
 
 	//server routes go here
@@ -158,10 +159,11 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/getRemainingIngredients', function(req, res) {
+	app.post('/getRemainingIngredients', function(req, res) {
+		console.log(req.query);
 		models.Ingredient.findAll({where:
 			{
-
+				inventory_cat_id: req.query.category
 			}
 		}).then(function(ingredients) {
 			if(ingredients == null) {
@@ -175,6 +177,32 @@ module.exports = function(app) {
 	});
 
 
+	/***********************************
+		Menu Items
+	************************************/
+
+
+	app.post('/addMenuCategory', function(req, res) {
+		console.log(req.query.name);
+		models.MenuCategory.create({
+			name: req.query.name
+		}).then(function(employee) {
+			res.send("Created");
+		});
+
+	});
+
+	app.get('/getMenuCategory', function(req, res) {
+		models.MenuCategory.findAll({}).then(function(categories) {
+			if(categories == null) {
+				res.send("Doesn't exist");
+			}
+			else {
+				res.send(categories);
+			}
+
+		});
+	});
 
 
 	app.post('/getMenuItem', function(req, res) {
@@ -182,8 +210,7 @@ module.exports = function(app) {
 
 		models.MenuItem.findOne({
 			where: {
-				row: req.query.row,
-				col: req.query.col
+				category_id: req.query.cat_id
 			}
 		}).then(function(menuItem) {
 			console.log(menuItem);

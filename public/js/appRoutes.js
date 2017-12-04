@@ -70,6 +70,16 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'modifierTemplateController'
         })
 
+        .when('/admin_order', {
+            templateUrl: 'views/admin_order.html',
+            controller: 'adminOrderController'
+        })
+
+        .when('/modify_menu', {
+            templateUrl: 'views/modify_menu.html',
+            controller: 'modifyMenuController'
+        })
+
         .when('/inventory', {
             templateUrl: 'views/inventory.html',
             controller: 'inventoryController'

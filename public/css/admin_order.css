@@ -1,0 +1,9 @@
+.menuItemButton {
+	height: 80px;
+	width: 130px;
+}
+
+#menuItemGrid td {
+	width: 130px;
+	height: 80px;
+}

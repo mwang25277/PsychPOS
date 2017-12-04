@@ -11,18 +11,6 @@ module.exports = function(sequelize, DataTypes) {
 		name: {
 			type: DataTypes.STRING(25),
 			allowNull: false
-		},
-		row: {
-			type: DataTypes.INTEGER(3),
-			allowNull: true
-		},
-		col: {
-			type: DataTypes.INTEGER(3),
-			allowNull: true
-		},
-		color: {
-			type: DataTypes.STRING(45),
-			allowNull: true
 		}
 	}, {
 		tableName: 'MenuCategory',
