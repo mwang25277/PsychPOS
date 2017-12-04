@@ -15,7 +15,7 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
 		params: {}
   }).then(function(response) {
 		if(response.data != null && response.data != "") {
-			console.log(response.data);
+			//console.log(response.data);
 			$scope.categories = response.data;
 		}
 		else {
@@ -38,7 +38,7 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
 			params: {}
 	    }).then(function(response) {
 			if(response.data != null && response.data != "") {
-				console.log(response.data);
+				//console.log(response.data);
 				$scope.categories = response.data;
 			}
 			else {
@@ -81,37 +81,43 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   $scope.selectCategory = function($event) {
   	$(".categoryButtons").removeClass('active');	
   	$($event.currentTarget).addClass('active');
-  	console.log($event);
+  	//console.log($event);
   	$rootScope.menuCategory = {id: $event.currentTarget.value, name: $event.currentTarget.innerHTML};
 
-  	$http({
-  		url: "/getMenuItem",
-  		method: 'get',
-  		params: { invCatID: $event.currentTarget.value }
-  	}).then(function(response) {
-  		if(response.data != null && response.data != "") {
-  			console.log(response.data);
-  			$scope.inventory = response.data;
-  		}
-  		else {
-  			$scope.inventory = [];
-  		}
-  	});
+  	// $http({
+  	// 	url: "/getMenuItem",
+  	// 	method: 'get',
+  	// 	params: { menu_cat_id: $event.currentTarget.value }
+  	// }).then(function(response) {
+  	// 	if(response.data != null && response.data != "") {
+  	// 		//console.log(response.data);
+  	// 		$scope.ingredients = response.data;
+  	// 	}
+  	// 	else {
+  	// 		$scope.inventory = [];
+  	// 	}
+  	// });
 
-  }
+  };
 
   $scope.modifyMenuItem = function($event) {
     //console.log($event);
 
     if($($event.currentTarget).val() == "") {
+      var butID = $event.currentTarget.id;
+      var row = parseInt(butID.substr(3,4));
+      var col = parseInt(butID.substr(7,8));
       $rootScope.menuItem = {
         id: 0,
         name: "",
         category: $rootScope.menuCategory.id,
+        row: row,
+        col: col,
         color: "",
         ingredients: [],
         modifier_template: ""
       }
+      //console.log($rootScope.menuItem);
     }
     else {
 
@@ -125,10 +131,10 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   	console.log("Here");
   	$(".invItem").removeClass('table-active');
   	$($event.currentTarget).addClass('table-active');
-  	console.log($event);
+  	//console.log($event);
   	$scope.selectedItem = $scope.inventory[parseInt($event.currentTarget.title)];
   	console.log($scope.selectedItem);
-  }
+  };
 
 
 });

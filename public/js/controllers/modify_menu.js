@@ -2,14 +2,17 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
   $scope.userID = "";
 
   $scope.employeeName = loginService.getName();
-
+  console.log($rootScope.menuItem);
   $scope.menu_id = $rootScope.menuItem.id;
   $scope.item_name = $rootScope.menuItem.name;
-  $scope.menuCategory = $rootScope.menuCategory.name;
-  $scope.color = $rootScope.menuItem.color;
+  $scope.menuItemCategory = $rootScope.menuCategory.name;
+  $scope.price = $rootScope.menuItem.price;
+  $scope.buttonColor = $rootScope.menuItem.color;
   $scope.ingredients = $rootScope.menuItem.ingredients;
   console.log($scope.ingredients);
+  $scope.modifierTemp = $rootScope.menuItem.modifier_template;
   $scope.categories = [];
+  $scope.modTemps = [];
 
   $scope.availableIngredients = [];
 
@@ -22,11 +25,26 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
 		params: {}
   }).then(function(response) {
 		if(response.data != null && response.data != "") {
-			console.log(response.data);
+			//console.log(response.data);
 			$scope.categories = response.data;
 		}
 		else {
-			console.log("Error");
+			console.log("Error1");
+		}
+  });
+
+  $http({
+		url: "/getModTemps",
+		method: 'get',
+		params: {}
+  }).then(function(response) {
+  		console.log(response);
+		if(response.data != null && response.data != "") {
+			//console.log(response.data);
+			$scope.modTemps = response.data;
+		}
+		else {
+			console.log("Error2");
 		}
   });
 
@@ -86,40 +104,26 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
   	}
   }
 
-  $scope.selectedclients = [];                                
 
-    $scope.availableclients = [
-      {
-        id: 1, 
-        name: 'foo'
-      }, 
-      {
-        id: 2, 
-        name: 'bar'
-      },
-      {
-        id: 3,
-        name: 'baz'
-      }
-    ];
-
-  $scope.addInventory = function() {
+  $scope.addMenuItem = function() {
 
   	$http({
-		url: "/addInventory",
+		url: "/addMenuItem",
 		method: 'POST',
 		params: {
-			id: parseInt($scope.inventoryID),
-			name: $scope.inventoryName,
-			inventory_cat_id: parseInt($rootScope.inventoryCategory.id),
-			serving_size: $scope.servingSize,
-			quantity_on_hand: parseFloat($scope.quantity_onhand),
-			quantity_needed: parseFloat($scope.quantity_needed)
+			id: parseInt($scope.menu_id),
+			name: $scope.item_name,
+			price: $scope.price,
+			row: $rootScope.menuItem.row,
+			col: $rootScope.menuItem.col,
+			category_id: parseInt($rootScope.menuCategory.id),
+			modifier_template_id: "",
+			color: ""
 		}
 	 }).then(function(response) {
 		if(response.data != null && response.data != "") {
-			console.log(response);
-			$scope.categories = response.data;
+			//console.log(response);
+			$location.path("/admin_order")
 		}
 		else {
 			console.log("Error");

@@ -8,15 +8,16 @@
                         <label>Menu Item Name:</label> <input type="text" name="item_name" ng-model="menuItemName" required>
                     </div>
                     <div class="form-group">
-                        <label>Category:</label> <input type="text" name="category" readonly ng-model="menuItemCategory">
+                        <label>Category:</label> <input type="text" name="menuItemCategory" readonly ng-model="menuItemCategory">
                     </div>
                     <div class="form-group">
-                        <label>Price:</label> <input type="text" name="servingSize" ng-model="servingSize" required>
+                        <label>Price:</label> <input type="text" name="price" ng-model="price" required>
                     </div>
                     <div class="form-group">
                         <label>Color:</label> <input type="color" name="buttonColor" ng-model="buttonColor" required>
                     </div>
                     <div class="form-inline" id="addRemoveIng">
+                        <div class="col-md-2"></div>
                         <div class="col-md-2">
                             <label for="ingredientCat">Category</label>
                             <select name="ingredientCat" ng-model="ingredientCat" ng-options="category as category.name for category in categories" size="4" ng-change="ingSelected(ingredientCat)"></select>
@@ -27,14 +28,17 @@
                         </div>
                         <div class="col-md-2">         
                             <input id="moveright" type="button" value="Add >>" ng-click="addItem(selectedIng[0])" style="width: 150px" />
-                            <input id="move left" type="button" value="<< Remove" ng-click="removeItem()" style="width: 150px" />    
+                            <input id="move left" type="button" value="<< Remove" ng-click="removeItem(selectedIng[0])" style="width: 150px" />    
                         </div>
                         <div class="col-md-2">
                             <label for="sclients">Selected Ingredients</label>                                                    
                             <select size="4" ng-model="selectedMenuIng" ng-options="ingredientA as ingredientA.name for ingredientA in ingredients" style="width: 200px"></select>
                         </div>
                     </div>
-                    <a href="/inventory" role="button" class="btn btn-outline-dark" ng-click="addInventory()">Save</a>
+                    <div class="form-group">
+                        <label>Modifier Template:</label> <select name="modTemp" ng-model="modifierTemp" ng-options="template as template.name for template in modTemps"></select>
+                    </div>
+                    <a href="/inventory" role="button" class="btn btn-outline-dark" ng-click="addMenuItem()">Save</a>
                     <a href="/inventory" role="button" class="btn btn-outline-dark">Cancel</a>
 
                         <!-- Category: <select name="item_type">

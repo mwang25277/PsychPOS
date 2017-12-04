@@ -176,6 +176,17 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/getModTemps', function(req,res) {
+		models.ModifierTemplate.findAll({}).then(function(modTemps) {
+			if(modTemps == null) {
+				res.send([]);
+			}
+			else {
+				res.send(modTemps);
+			}
+		});
+	});
+
 
 	/***********************************
 		Menu Items
@@ -213,6 +224,15 @@ module.exports = function(app) {
 				category_id: req.query.cat_id
 			}
 		}).then(function(menuItem) {
+			console.log(menuItem);
+			res.send(menuItem);
+		});
+	});
+
+	app.post('/addMenuItem', function(req, res) {
+		console.log(req.query.row);
+
+		models.MenuItem.create(req.query).then(function(menuItem) {
 			console.log(menuItem);
 			res.send(menuItem);
 		});
