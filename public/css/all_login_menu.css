@@ -1,5 +1,6 @@
 body, html{
-	background-color: #e5f7ff;
+	background-image: url(/media/tiedye.gif);
+	background-size:100%;
 	color:#3f3f3f;
     min-height: 100%;
     font-family: 'Open Sans', sans-serif;
@@ -12,7 +13,7 @@ h1 {
 
 
 .btn {
-	background-color: #fefffc;
+	background-color: #edfff2;
 	width: 150px;
 	height: 50px;
 	margin-bottom: 2%;

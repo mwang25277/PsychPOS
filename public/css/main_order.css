@@ -5,6 +5,13 @@ body, html{
 	margin-bottom: 10px;
 }
 
+.borders {
+	border-style:solid;
+	border-color:grey; 
+	border-radius:2px;
+	border-width: 2px;
+}
+
 #button_grid {
 	text-align: center;
 	overflow: scroll;
