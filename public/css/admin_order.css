@@ -1,9 +1,63 @@
 .menuItemButton {
-	height: 80px;
-	width: 130px;
+	height: 50px;
+	width: 115px;
+	margin:10px;
 }
 
 #menuItemGrid td {
 	width: 130px;
 	height: 80px;
+}
+
+.menuItemGrid {
+	overflow: scroll;
+}
+
+.menuitems {
+	margin-left:3%;
+	margin-right: 3%;
+	height:550px; 
+	width:95%;
+	margin-bottom: 15px;
+}
+
+.addRemoveIngRow {
+	background-color: #f4f4f4;
+	margin-left: 1px;
+	margin-bottom: 20px;
+}
+
+#modifymenu {
+	margin-top: 20px;
+}
+
+#modifymenu input[type=color]{
+	width: 25px;
+	height: 25px;
+}
+
+#modifymenu label[for=format] {
+	width: 150px;
+	text-align: right;
+	margin-right: 10px;
+}
+
+#modifymenu input[type=text]{
+	width: 300px;
+}
+
+#modifymenu select[name=modTemp] {
+	width:300px;
+	margin-top:20px;
+	margin-bottom: 20px;
+}
+
+
+#moveright {
+	margin-top: 30px;
+}
+
+.menugohome {
+	margin-left: 10px;
+	margin-bottom: 5px;
 }
