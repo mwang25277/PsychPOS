@@ -1,3 +1,7 @@
 /*#addRemoveIng input, label{
 	display: block;
 }*/
+
+.addRemoveIngRow {
+	margin-left: 150px;
+}

@@ -18,22 +18,22 @@
                     </div>
                     <div class="form-inline">
                     	<div class="row addRemoveIngRow">
-                        <div class="col-md-3">
-                            <label for="ingredientCat">Category</label>
-                            <select name="ingredientCat" ng-model="ingredientCat" ng-options="category as category.name for category in categories" size="4" ng-change="ingSelected(ingredientCat)"></select>
-                        </div>
-                        <div id="modifyIngred" class="col-md-3">
-                            <label for="availableIng">Ingredients</label>                                
-                            <select name="availableIng" size="4" multiple ng-model="selectedIng" ng-options="ingredient as ingredient.name for ingredient in availableIngredients" style="width: 200px"></select>
-                        </div>
-                        <div class="col-md-3">         
-                            <input id="moveright" type="button" value="Add >>" ng-click="addItem(selectedIng[0])" style="width: 150px" />
-                            <input id="moveleft" type="button" value="<< Remove" ng-click="removeItem(selectedIng[0])" style="width: 150px" />    
-                        </div>
-                        <div class="col-md-3">
-                            <label for="sclients">Selected Ingredients</label>                                                    
-                            <select size="4" ng-model="selectedMenuIng" ng-options="ingredientA as ingredientA.name for ingredientA in ingredients" style="width: 200px"></select>
-                        </div>
+                            <div class="col-md-3">
+                                <label for="ingredientCat">Category</label>
+                                <select name="ingredientCat" ng-model="ingredientCat" ng-options="category as category.name for category in categories" size="4" ng-change="ingSelected(ingredientCat)"></select>
+                            </div>
+                            <div id="modifyIngred" class="col-md-3">
+                                <label for="availableIng">Ingredients</label>                                
+                                <select name="availableIng" size="4" multiple ng-model="selectedIng" ng-options="ingredient as ingredient.name for ingredient in availableIngredients" style="width: 200px"></select>
+                            </div>
+                            <div class="col-md-3">         
+                                <input id="moveright" type="button" value="Add >>" ng-click="addItem(selectedIng[0])" style="width: 150px" />
+                                <input id="moveleft" type="button" value="<< Remove" ng-click="removeItem(selectedIng[0])" style="width: 150px" />    
+                            </div>
+                            <div class="col-md-3">
+                                <label for="sclients">Selected Ingredients</label>                                                    
+                                <select size="4" ng-model="selectedMenuIng" ng-options="ingredientA as ingredientA.name for ingredientA in ingredients" style="width: 200px"></select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
