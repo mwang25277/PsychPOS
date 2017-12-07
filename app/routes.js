@@ -216,26 +216,35 @@ module.exports = function(app) {
 	});
 
 
-	app.post('/getMenuItem', function(req, res) {
-		console.log(req.query.row);
+	app.get('/getMenuItems', function(req, res) {
+		console.log(req.query);
 
-		models.MenuItem.findOne({
+		models.MenuItem.findAll({
 			where: {
-				category_id: req.query.cat_id
+				category_id: req.query.menu_cat_id
 			}
-		}).then(function(menuItem) {
-			console.log(menuItem);
-			res.send(menuItem);
+		}).then(function(menuItems) {
+			console.log(menuItems);
+			res.send(menuItems);
 		});
 	});
 
 	app.post('/addMenuItem', function(req, res) {
-		console.log(req.query.row);
-
+		console.log(req.query);
+		var ings = req.query.ingredients;
+		delete(req.query.ingredients);
+		console.log(ings);
 		models.MenuItem.create(req.query).then(function(menuItem) {
 			console.log(menuItem);
-			res.send(menuItem);
+			for(var i = 0; i < ings.length; i++) {
+				// models.MenuItem_to_Ingredient.create({ MenuItem_id: menuItem.id, Ingredient_id: ings[i].id}).then(function(joined) {
+				// 	res.send(joined);
+				// });
+				console.log(ings);
+			}
 		});
+
+
 	});
 
 	app.get('*', function(req, res) {

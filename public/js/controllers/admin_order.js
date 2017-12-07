@@ -84,19 +84,27 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   	//console.log($event);
   	$rootScope.menuCategory = {id: $event.currentTarget.value, name: $event.currentTarget.innerHTML};
 
-  	// $http({
-  	// 	url: "/getMenuItem",
-  	// 	method: 'get',
-  	// 	params: { menu_cat_id: $event.currentTarget.value }
-  	// }).then(function(response) {
-  	// 	if(response.data != null && response.data != "") {
-  	// 		//console.log(response.data);
-  	// 		$scope.ingredients = response.data;
-  	// 	}
-  	// 	else {
-  	// 		$scope.inventory = [];
-  	// 	}
-  	// });
+  	$http({
+  		url: "/getMenuItems",
+  		method: 'get',
+  		params: { menu_cat_id: $event.currentTarget.value }
+  	}).then(function(response) {
+  		if(response.data != null && response.data != "") {
+  			//console.log(response.data);
+  			$scope.menuItems = response.data;
+        console.log($scope.menuItems);
+        for(var i = 0; i < $scope.menuItems.length; i++) {
+          var menuItem = $scope.menuItems[i];
+          console.log(menuItem);
+          var button = "#row"+menuItem.row.toString()+"col"+menuItem.col.toString();
+          $(button).html(menuItem.name);
+          $(button).css("background-color", menuItem.color);
+        }
+  		}
+  		else {
+  			$scope.inventory = [];
+  		}
+  	});
 
   };
 

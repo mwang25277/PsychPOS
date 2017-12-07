@@ -4,7 +4,7 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
   $scope.employeeName = loginService.getName();
   console.log($rootScope.menuItem);
   $scope.menu_id = $rootScope.menuItem.id;
-  $scope.item_name = $rootScope.menuItem.name;
+  $scope.menuItemName = $rootScope.menuItem.name;
   $scope.menuItemCategory = $rootScope.menuCategory.name;
   $scope.price = $rootScope.menuItem.price;
   $scope.buttonColor = $rootScope.menuItem.color;
@@ -106,19 +106,20 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
 
 
   $scope.addMenuItem = function() {
-
+  	console.log($scope.selectedIng);
   	$http({
 		url: "/addMenuItem",
 		method: 'POST',
 		params: {
 			id: parseInt($scope.menu_id),
-			name: $scope.item_name,
+			name: $scope.menuItemName,
 			price: $scope.price,
 			row: $rootScope.menuItem.row,
 			col: $rootScope.menuItem.col,
 			category_id: parseInt($rootScope.menuCategory.id),
-			modifier_template_id: "",
-			color: ""
+			modifier_template_id: $scope.modifierTemp.id,
+			color: $scope.buttonColor,
+			ingredients: $scope.ingredients
 		}
 	 }).then(function(response) {
 		if(response.data != null && response.data != "") {

@@ -1,16 +1,16 @@
 <div class="container"> 
     <h1 align="left">Psychedelicatessen</h1>
     <div class="rounded row borders" style="height:700px;background-color:white;">
-        <h3 align="center" style="color:#3f3f3f; margin-left:40%;margin-top:10px;height:50px;">Menu Items</h3>
+        <h3 align="center" style="color:#3f3f3f; margin-left:40%;margin-top:10px;height:30px;">Menu Items</h3>
         <div class="row menuitems">
             <div class="col-md-3 borders" style="background-color:lightgrey;">
                 <h3 align="center" style="color:#3f3f3f;">Categories</h3>
                 <div id="categories" class="rounded" style="background-color:#f9f9f9;">
                     <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-outline-dark categoryButtons" style="margin-left:27px; margin-bottom:3px;margin-top:5px;border-radius:3px;" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
+                        <button type="button" class="btn btn-outline-dark categoryButtons btn-lg" style="margin-left:27px; margin-bottom:3px;margin-top:5px;border-radius:3px;" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
                     </div>
                 </div>
-                <a href="#" role="button" style="margin-top:5px;margin-left:15px;" class="btn btn-outline-dark" data-toggle="modal" data-target="#categoryModal">New Category</a>
+                <a href="#" role="button" style="margin-top:5px;margin-left:55px; width: 165px;" class="btn btn-outline-dark btn-lg" data-toggle="modal" data-target="#categoryModal">New Category</a>
                 <div class="modal" id="categoryModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="row menugohome">
-            <a href="/admin_home" role="button" style="margin-top:5px;margin-left:15px;margin-bottom:1px;background-color:#ffd1d1;" class="btn btn-outline-dark">Back</a> 
+            <a href="/admin_home" role="button" style="margin-top:5px;margin-left:15px;margin-bottom:1px;background-color:#ffd1d1;" class="btn btn-outline-dark btn-lg">Back</a> 
         </div>
     </div>    
 </div>
