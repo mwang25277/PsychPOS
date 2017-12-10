@@ -5,12 +5,20 @@ module.exports = function(sequelize, DataTypes) {
 		ingredient_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			references: {
+				model: "Ingredient",
+				key: "id"
+			}
 		},
 		modtemp_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			references: {
+				model: "ModifierTemplate",
+				key: "id"
+			}
 		},
 		row: {
 			type: DataTypes.INTEGER(11),

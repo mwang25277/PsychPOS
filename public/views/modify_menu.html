@@ -28,11 +28,11 @@
                             </div>
                             <div class="col-md-3">         
                                 <input id="moveright" type="button" value="Add >>" ng-click="addItem(selectedIng[0])" style="width: 150px" />
-                                <input id="moveleft" type="button" value="<< Remove" ng-click="removeItem(selectedIng[0])" style="width: 150px" />    
+                                <input id="moveleft" type="button" value="<< Remove" ng-click="removeItem()" style="width: 150px" />    
                             </div>
                             <div class="col-md-3">
-                                <label for="sclients">Selected Ingredients</label>                                                    
-                                <select size="4" ng-model="selectedMenuIng" ng-options="ingredientA as ingredientA.name for ingredientA in ingredients" style="width: 200px"></select>
+                                <label for="selectedIngs">Selected Ingredients</label>                                                    
+                                <select name="selectedIngs" size="4" multiple ng-model="selectedMenuIng" ng-options="ingredientA as ingredientA.name for ingredientA in ingredients" style="width: 200px"></select>
                             </div>
                         </div>
                     </div>

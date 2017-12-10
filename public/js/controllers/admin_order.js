@@ -5,6 +5,8 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
 
   $scope.categories = [];
 
+  $scope.menuItems = [];
+
   $rootScope.menuCategory = "";
 
   $scope.inventory = [];
@@ -91,18 +93,38 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   	}).then(function(response) {
   		if(response.data != null && response.data != "") {
   			//console.log(response.data);
+        //remove previous menu items
+        for(var i = 0; i < $scope.menuItems.length; i++) {
+          var menuItem = $scope.menuItems[i];
+          console.log(menuItem);
+          var button = "#row"+menuItem.row.toString()+"col"+menuItem.col.toString();
+          $(button).removeAttr("value");
+          $(button).html("");
+          $(button).removeAttr("style");
+        }
+
+        //add new ones
   			$scope.menuItems = response.data;
         console.log($scope.menuItems);
         for(var i = 0; i < $scope.menuItems.length; i++) {
           var menuItem = $scope.menuItems[i];
           console.log(menuItem);
           var button = "#row"+menuItem.row.toString()+"col"+menuItem.col.toString();
+          $(button).val(menuItem.id);
           $(button).html(menuItem.name);
           $(button).css("background-color", menuItem.color);
         }
   		}
   		else {
-  			$scope.inventory = [];
+        for(var i = 0; i < $scope.menuItems.length; i++) {
+          var menuItem = $scope.menuItems[i];
+          console.log(menuItem);
+          var button = "#row"+menuItem.row.toString()+"col"+menuItem.col.toString();
+          $(button).removeAttr("value");
+          $(button).html("");
+          $(button).removeAttr("style");
+        }
+
   		}
   	});
 
@@ -126,12 +148,41 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
         modifier_template: ""
       }
       //console.log($rootScope.menuItem);
+       $location.path("/modify_menu");
     }
     else {
+      $http({
+        url: "/getMenuItemByID",
+        method: 'get',
+        params: { id: $($event.currentTarget).val() }
+      }).then(function(response) {
+        if(response.data != null && response.data != "") {
+          console.log(response.data);
+          $rootScope.menuItem = response.data;
+        }
+        else {
+          console.log("Error");
+        }
+      });
+
+      $http({
+        url: "/getMenuItemIngs",
+        method: 'get',
+        params: { id: $($event.currentTarget).val() }
+      }).then(function(response) {
+        if(response.data != null && response.data != "") {
+          console.log(response.data);
+          $rootScope.menuItem.ingredients = response.data;
+          $location.path("/modify_menu");
+        }
+        else {
+          console.log("Error");
+          $rootScope.menuItem.ingredients = [];
+          $location.path("/modify_menu");
+        }
+      });
 
     }
-
-    $location.path("/modify_menu");
   };
 
 

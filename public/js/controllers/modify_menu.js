@@ -19,6 +19,8 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
   $scope.ingredientCat = "";
   $scope.selectedIng = "";
 
+  $scope.selectedMenuIng = "";
+
   $http({
 		url: "/getInvCategory",
 		method: 'get',
@@ -58,7 +60,7 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
         	from.splice(idx, 1);
         	to.push(item);      
     	}
-  }
+  };
   $scope.moveAll = function(from, to) {
 
     	console.log('Move all  From:: '+from+' To:: '+to);
@@ -92,6 +94,7 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
 			}
 			else {
 				console.log("Error");
+        $scope.availableIngredients = [];
 			}
 	    });
 	}
@@ -99,37 +102,76 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
 
   $scope.addItem = function(item) {
   	console.log(item);
-  	if($scope.ingredients.indexOf(item) == -1) {
-  		$scope.ingredients.push(item);
-  	}
-  }
+    if(item != undefined && item != null) {
+    	if($scope.ingredients.indexOf(item) == -1) {
+    		$scope.ingredients.push(item);
+    	}
+    }
+  };
+
+  $scope.removeItem = function() {
+    console.log(($scope.selectedMenuIng)[0]);
+    if($scope.selectedMenuIng[0] != undefined && $scope.selectedMenuIng[0] != null) {
+      for(var i = 0; i < $scope.ingredients.length; i++) {
+        if($scope.selectedMenuIng[0].id == $scope.ingredients[i].id)
+          $scope.ingredients.splice(i, 1);
+      }
+    }
+  };
 
 
   $scope.addMenuItem = function() {
   	console.log($scope.selectedIng);
-  	$http({
-		url: "/addMenuItem",
-		method: 'POST',
-		params: {
-			id: parseInt($scope.menu_id),
-			name: $scope.menuItemName,
-			price: $scope.price,
-			row: $rootScope.menuItem.row,
-			col: $rootScope.menuItem.col,
-			category_id: parseInt($rootScope.menuCategory.id),
-			modifier_template_id: $scope.modifierTemp.id,
-			color: $scope.buttonColor,
-			ingredients: $scope.ingredients
-		}
-	 }).then(function(response) {
-		if(response.data != null && response.data != "") {
-			//console.log(response);
-			$location.path("/admin_order")
-		}
-		else {
-			console.log("Error");
-		}
-	});
+    if($scope.menu_id == 0) {
+    	$http({
+    		url: "/addMenuItem",
+    		method: 'POST',
+    		params: {
+    			id: parseInt($scope.menu_id),
+    			name: $scope.menuItemName,
+    			price: $scope.price,
+    			row: $rootScope.menuItem.row,
+    			col: $rootScope.menuItem.col,
+    			category_id: parseInt($rootScope.menuCategory.id),
+    			modifier_template_id: $scope.modifierTemp.id,
+    			color: $scope.buttonColor,
+    			ingredients: JSON.stringify($scope.ingredients)
+    		}
+    	 }).then(function(response) {
+    		if(response.data != null && response.data != "") {
+    			//console.log(response);
+    			$location.path("/admin_order")
+    		}
+    		else {
+    			console.log("Error");
+    		}
+    	});
+    }
+    else {
+      $http({
+        url: "/editMenuItem",
+        method: 'POST',
+        params: {
+          id: parseInt($scope.menu_id),
+          name: $scope.menuItemName,
+          price: $scope.price,
+          row: $rootScope.menuItem.row,
+          col: $rootScope.menuItem.col,
+          category_id: parseInt($rootScope.menuCategory.id),
+          modifier_template_id: $scope.modifierTemp.id,
+          color: $scope.buttonColor,
+          ingredients: JSON.stringify($scope.ingredients)
+        }
+       }).then(function(response) {
+        if(response.data != null && response.data != "") {
+          //console.log(response);
+          $location.path("/admin_order");
+        }
+        else {
+          console.log("Error");
+        }
+      });
+    }
   }
 
 });
