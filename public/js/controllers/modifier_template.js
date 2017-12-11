@@ -1,9 +1,9 @@
-angular.module('modifierTemplateCtrl', []).controller('modifierTemplateController', function($scope, $http, $window, loginService, $timeout) {
+angular.module('modifierTemplateCtrl', []).controller('modifierTemplateController', function($scope, $http, $window, loginService, $timeout, $route) {
   
   $scope.templateChosen = false;
   $scope.creatingNewTemplate = false;
 
-  $scope.templateName = "";
+  $scope.selectedTemplate = "";
 
   $scope.templates = [];
 
@@ -54,26 +54,73 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
     });
   };
 
+  $scope.createDupeTemplate = function() {
+    $scope.creatingNewTemplate = true;
+    $scope.selectedTemplate = "";
+  };
+
+  $scope.selectTemplate = function() {
+    $scope.templateChosen = true;
+    console.log($scope.selectedTemplate);
+    if($scope.selectedTemplate != "") {
+        $http({
+        url: "/getModTemp",
+        method: 'get',
+        params: { id: $scope.selectedTemplate.id }
+      }).then(function(response) {
+        if(response.data != null && response.data != "") {
+          console.log(response.data);
+          $scope.selectedIngredients = response.data.ings;
+          $scope.selectedCategories = response.data.categories;
+          var selCatIDs = [];
+          console.log($scope.selectedCategories);
+          for(var i = 0; i < $scope.selectedCategories.length; i++) {
+            $("#cat" + (i+1).toString()).html($scope.selectedCategories[i].name);
+            $("#cat" + (i+1).toString()).val($scope.selectedCategories[i].id);
+            selCatIDs.push($scope.selectedCategories[i].id);
+          }
+
+          $http({
+            url: "/getRemainingInvCategory",
+            method: 'post',
+            params: { ids: JSON.stringify(selCatIDs) }
+          }).then(function(response) {
+            if(response.data != null && response.data != "") {
+              console.log(response.data);
+              $scope.availableCategories = response.data;
+            }
+            else {
+              $scope.availableCategories = [];
+            }
+          });
+
+
+
+        }
+      });
+    }
+  };
+
   $("#selectCategoryModal").on("show.bs.modal", function(event) {
   	var button = $(event.relatedTarget);
-  	console.log(button);
+  	//console.log(button);
   	$("#whichButton").val(button[0].id.substr(4,8));
-  	console.log(button[0].id);
-  	console.log($("#whichButton").val());
+  	//console.log(button[0].id);
+  	//console.log($("#whichButton").val());
   });
 
   $("#selectIngredientModal").on("show.bs.modal", function(event) {
   	var button = $(event.relatedTarget);
-  	console.log(button);
+  	//console.log(button);
   	$("#whichIngButton").val(button[0].id);
-  	console.log(button[0].id);
-  	console.log($("#whichIngButton").val());
+  	//console.log(button[0].id);
+  	//console.log($("#whichIngButton").val());
   });
 
   $scope.selectCategory = function($event) {
-  	console.log($event);
-    console.log($event.currentTarget);
-    console.log($scope.selectedIngredients);
+  	// console.log($event);
+   console.log($event.currentTarget);
+   //  console.log($scope.selectedIngredients);
     if($event.currentTarget.value != "" && $event.currentTarget.value != $scope.currentCategory.id) {
     	$(".catButton").removeClass("active");
     	$($event.currentTarget).addClass("active");
@@ -101,14 +148,14 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
       for(var j = 0; j < $scope.selectedIngredients.length; j++) {
         ingIDs.push($scope.selectedIngredients[j].ingredient_id);
       }
-      console.log(ingIDs);
+      //console.log(ingIDs);
     	$http({
 		    url: "/getRemainingIngredients",
 		    method: 'post',
 		    params: { selectedIngredients: JSON.stringify(ingIDs), category_id: $scope.currentCategory.id }
 	    }).then(function(response) {
 		    if(response.data != null && response.data != "") {
-			  console.log(response.data);
+			  //console.log(response.data);
 			  $scope.availableIngredients = response.data;
 		    }
 		    else {
@@ -126,8 +173,8 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
   	$(buttonSelected).addClass("active");
     if($(buttonSelected).val() != undefined || $(buttonSelected).val() != null) {
       for(var x = 0; x < $scope.selectedCategories.length; x++) {
-        console.log($scope.selectedCategories[x].id);
-        console.log($(buttonSelected).val());
+        // console.log($scope.selectedCategories[x].id);
+        // console.log($(buttonSelected).val());
         if($scope.selectedCategories[x].id == $(buttonSelected).val()) {
           console.log("here");
           $scope.availableCategories.push($scope.selectedCategories[x]);
@@ -159,9 +206,9 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
   		params: { invCatID: $scope.categorySelected.id }
   	}).then(function(response) {
   		if(response.data != null && response.data != "") {
-  			console.log(response.data);
+  			//console.log(response.data);
   			$scope.availableIngredients = response.data;
-  			console.log($scope.availableIngredients);
+  			//console.log($scope.availableIngredients);
   		}
   		else {
   			$scope.availableIngredients = [];
@@ -171,7 +218,7 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
   };
 
   $scope.selectIngredient = function() {
-  	console.log($scope.ingredientSelected);
+  	//console.log($scope.ingredientSelected);
   	var buttonSelected = $("#whichIngButton").val();
   	var row = parseInt(buttonSelected.substr(3,4));
   	var col = parseInt(buttonSelected.substr(7,8));
@@ -197,14 +244,14 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
     for(var j = 0; j < $scope.selectedIngredients.length; j++) {
       ingIDs.push($scope.selectedIngredients[j].ingredient_id);
     }
-    console.log(ingIDs);
+    //console.log(ingIDs);
     $http({
       url: "/getRemainingIngredients",
       method: 'post',
       params: { selectedIngredients: JSON.stringify(ingIDs), category_id: $scope.currentCategory.id }
     }).then(function(response) {
       if(response.data != null && response.data != "") {
-      console.log(response.data);
+      //console.log(response.data);
       $scope.availableIngredients = response.data;
       }
       else {
@@ -216,14 +263,30 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
 
 
   $scope.saveTemplate = function() {
-
-    $http({
-      url: "/addModTemplate",
-      method: 'post',
-      params: { name: $scope.newTemplateName, ingredients: JSON.stringify($scope.selectedIngredients) }
-    }).then(function(response) {
-      console.log(response);
-    });
+    if($scope.selectedTemplate == "") {
+      $http({
+        url: "/addModTemplate",
+        method: 'post',
+        params: { name: $scope.newTemplateName, ingredients: JSON.stringify($scope.selectedIngredients) }
+      }).then(function(response) {
+        console.log(response);
+        if(response.data == "Success") {
+          $route.reload();
+        }
+      });
+    }
+    else {
+      $http({
+        url: "/editModTemplate",
+        method: 'post',
+        params: { id: $scope.selectedTemplate.id, name: $scope.selectedTemplate.name, ingredients: JSON.stringify($scope.selectedIngredients) }
+      }).then(function(response) {
+        console.log(response);
+        if(response.data == "Success") {
+          $route.reload();
+        }
+      });
+    }
 
 
   };

@@ -201,6 +201,39 @@ module.exports = function(app) {
 		}
 	});
 
+	app.post('/getRemainingInvCategory', function(req, res) {
+		console.log(req.query);
+		var selectedCats = JSON.parse(req.query.ids);
+		if(selectedCats.length > 0) { 
+			models.InventoryCategory.findAll({where:
+				{
+					id: {
+						[Op.notIn]: selectedCats
+					}
+				}
+			}).then(function(categories) {
+				if(categories == null) {
+					res.send([]);
+				}
+				else {
+					res.send(categories);
+				}
+
+			});
+		}
+		else {
+			models.InventoryCategory.findAll({}).then(function(categories) {
+				if(categories == null) {
+					res.send([]);
+				}
+				else {
+					res.send(categories);
+				}
+
+			});
+		}
+	});
+
 	app.get('/getModTemps', function(req,res) {
 		models.ModifierTemplate.findAll({}).then(function(modTemps) {
 			if(modTemps == null) {
@@ -209,6 +242,27 @@ module.exports = function(app) {
 			else {
 				res.send(modTemps);
 			}
+		});
+	});
+
+	app.get('/getModTemp', function(req,res) {
+		var modTempData = {};
+		sequelize.query("SELECT DISTINCT(inventory_cat_id) AS id, InventoryCategory.name FROM Ingredient_to_ModTemp, Ingredient, InventoryCategory WHERE modtemp_id = " +
+						req.query.id.toString() + " AND Ingredient.id = ingredient_id AND inventory_cat_id = InventoryCategory.id", {type: sequelize.QueryTypes.SELECT}).then(function(categories) {
+
+			if(categories != null) {
+				modTempData.categories = categories;
+			}
+		});
+
+		sequelize.query("SELECT ingredient_id, row, col, Ingredient.name AS ingredient_name, Ingredient.inventory_cat_id AS category_id from Ingredient_to_ModTemp, Ingredient WHERE modtemp_id = " +
+						req.query.id.toString() + " AND Ingredient.id = Ingredient_to_ModTemp.ingredient_id", {type: sequelize.QueryTypes.SELECT}).then(function(results) {
+
+			if(results != null) {
+				modTempData.ings = results;
+				res.send(modTempData);
+			}
+
 		});
 	});
 
@@ -233,6 +287,55 @@ module.exports = function(app) {
 					});
 				}
 			}
+			res.send("Success");
+		});
+	});
+
+	app.post('/editModTemplate', function(req,res) {
+		models.ModifierTemplate.update({name: req.query.name}, {where: {id: req.query.id} }).then(function(modTemp) {
+			console.log(modTemp);
+			if(modTemp == null) {
+				res.send("error");
+			}
+			else {
+				var ings = JSON.parse(req.query.ingredients);
+
+				models.Ingredient_to_ModTemp.findAll({ where: { modtemp_id: req.query.id } }).then(previous=> {
+
+					for(var x = 0; x < previous.length; x++) {
+						var found = false;
+						for(var y = 0; y < ings.length; y++) {
+							//console.log((previous[x].dataValues.Ingredient_id).toString() + " " + (ings[y].id).toString());
+							if(previous[x].dataValues.ingredient_id == ings[y].ingredient_id &&
+							   previous[x].dataValues.row == ings[y].row &&
+							   previous[x].dataValues.col == ings[y].col) {
+								ings.splice(y,1);
+								found = true;
+								break;
+							}
+						}
+						if(!found) {
+							previous[x].destroy();
+						}
+					}
+
+					for(var i = 0; i < ings.length; i++) {
+						console.log("hello");
+						models.Ingredient_to_ModTemp.create({
+							ingredient_id: ings[i].ingredient_id,
+							modtemp_id: req.query.id,
+							row: ings[i].row,
+							col: ings[i].col 
+						}).then(function(join) {
+							console.log("Created");
+						});
+					}
+
+				});
+
+
+			}
+			res.send("Success");
 		});
 	});
 

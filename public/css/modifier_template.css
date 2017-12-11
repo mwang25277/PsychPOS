@@ -2,12 +2,14 @@
 	width: 130px;
 	height: 65px;
 	margin: 2%;
+	white-space: normal;
 }
 
 .catButton {
-	width: 130px;
+	width: 130px !important;
 	height: 65px;
-	margin: 2%;
+	white-space: normal;
+	display: inline-block;
 }
 
 #modTempCats {
