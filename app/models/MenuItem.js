@@ -18,11 +18,11 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		row: {
 			type: DataTypes.INTEGER(3),
-			allowNull: true
+			allowNull: false
 		},
 		col: {
 			type: DataTypes.INTEGER(3),
-			allowNull: true
+			allowNull: false
 		},
 		category_id: {
 			type: DataTypes.INTEGER(11),
@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
 				key: 'id'
 			}
 		},
+		color: {
+			type: DataTypes.STRING(45),
+			allowNull: false
+		},
 		modifier_template_id: {
 			type: DataTypes.INTEGER(11),
 			allowNull: true,
@@ -40,9 +44,10 @@ module.exports = function(sequelize, DataTypes) {
 				key: 'id'
 			}
 		},
-		color: {
-			type: DataTypes.STRING(45),
-			allowNull: true
+		delete_flag: {
+			type: DataTypes.INTEGER(1),
+			allowNull: true,
+			defaultValue: '0'
 		}
 	}, {
 		tableName: 'MenuItem',

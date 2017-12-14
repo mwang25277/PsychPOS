@@ -1,4 +1,4 @@
-angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function($rootScope, $scope, $http, $window, loginService) {
+angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function($rootScope, $scope, $http, $location, loginService) {
   $scope.userID = "";
 
   $scope.employeeName = loginService.getName();
@@ -20,6 +20,9 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
   $scope.selectedIng = "";
 
   $scope.selectedMenuIng = "";
+
+  $scope.editingItem = $rootScope.menuItem.editing;
+  delete($rootScope.menuItem.editing);
 
   $http({
 		url: "/getInvCategory",
@@ -82,7 +85,7 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
 
   	if(i == $scope.ingredients.length) {
 	  	$http({
-			url: "/getRemainingIngredients",
+			url: "/getRemainingMenuIngredients",
 			method: 'POST',
 			params: { 
 				category: item.id, 
@@ -172,6 +175,24 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
         }
       });
     }
+  }
+
+
+  $scope.deleteMenuItem = function() {
+    $http({
+      url: "/deleteMenuItem",
+      method: 'get',
+      params: {
+        id: parseInt($scope.menu_id),
+      }
+     }).then(function(response) {
+      if(response.data != null && response.data != "") {
+        $location.path("/admin_order")
+      }
+      else {
+        console.log("Error");
+      }
+    });
   }
 
 });

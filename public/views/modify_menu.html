@@ -40,22 +40,31 @@
                         <label for="format">Modifier Template:</label> <select name="modTemp" ng-model="modifierTemp" ng-options="template as template.name for template in modTemps"></select>
                     </div>
                     <a href="/admin_order" role="button" class="btn btn-outline-dark" ng-click="addMenuItem()">Save</a>
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" ng-show="editingItem" data-target="#deleteMenuItemModal">Delete</button>
                     <a href="/admin_order" role="button" class="btn btn-outline-dark">Cancel</a>
 
-                        <!-- Category: <select name="item_type">
-                                        <option value="">Choose Type</option>
-                                    </select><br><br>
-                        Serving Size: <input type="text" name="servings_per_unit"><br><br>
-                        Cost/Serving: <input type="text" name="cost_per_serving"><br><br><br>
-                        After inventory works <input  href="inventory_main.html" type="submit" value="Submit" class="btn btn-outline-dark">
-                        Quantity On Hand: <input type="text" name="quantity_onhand">
-                        Quantity On Order: <input type="text" name="quantity_onorder"> -->
 
-                   <!--  </div>
-                    <div class="col right">
-                    
-                    Notes: <input type="text" name="notes">
-                    <div></div>   -->  
+                    <div class="modal fade" id="deleteMenuItemModal" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Delete {{menuItemName}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to delete this Menu Item?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteMenuItem()">Delete</button>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                 </form>
             </div>
         </row>

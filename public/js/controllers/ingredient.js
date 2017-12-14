@@ -1,4 +1,4 @@
-angular.module('ingredientCtrl', []).controller('ingredientController', function($rootScope, $scope, $http, $window, loginService) {
+angular.module('ingredientCtrl', []).controller('ingredientController', function($rootScope, $scope, $http, $location, loginService) {
   $scope.userID = "";
 
   $scope.categoryName = "";
@@ -8,6 +8,11 @@ angular.module('ingredientCtrl', []).controller('ingredientController', function
   $rootScope.ingredientCategory = "";
 
   $scope.ingredients = [];
+
+  $scope.selectedItem = "";
+
+  $scope.itemSelected = false;
+  $scope.categorySelected = false;
 
   $http({
 		url: "/getInvCategory",
@@ -57,7 +62,8 @@ angular.module('ingredientCtrl', []).controller('ingredientController', function
   	$($event.currentTarget).addClass('active');
   	console.log($event);
   	$rootScope.ingredientCategory = {id: $event.currentTarget.value, name: $event.currentTarget.innerHTML};
-
+    $scope.itemSelected = false;
+    $scope.categorySelected = true;
   	$http({
   		url: "/getIngItem",
   		method: 'get',
@@ -81,6 +87,7 @@ angular.module('ingredientCtrl', []).controller('ingredientController', function
   	console.log($event);
   	$scope.selectedItem = $scope.ingredients[parseInt($event.currentTarget.title)];
   	console.log($scope.selectedItem);
+    $scope.itemSelected = true;
   }
 
   $scope.addItem = function() {
@@ -99,6 +106,8 @@ angular.module('ingredientCtrl', []).controller('ingredientController', function
       halfCost: 0.00
 
   	};
+
+    $location.path("/modify_ingredient");
   }
 
   $scope.editItem = function() {
@@ -116,7 +125,43 @@ angular.module('ingredientCtrl', []).controller('ingredientController', function
       hasHalf: $scope.selectedItem.hasHalf,
       halfCost: $scope.selectedItem.halfCost
   	};
+
+    $location.path("/modify_ingredient");
   }
+
+  $scope.deleteItem = function() {
+    $http({
+      url: "/deleteIngItem",
+      method: 'get',
+      params: { id: $scope.selectedItem.id }
+    }).then(function(response) {
+      $http({
+        url: "/getIngItem",
+        method: 'get',
+        params: { invCatID: $rootScope.ingredientCategory.id }
+      }).then(function(response) {
+        if(response.data != null && response.data != "") {
+          console.log(response.data);
+          $scope.ingredients = response.data;
+          $scope.itemSelected = false;
+          $scope.categorySelected = true;
+        }
+        else {
+          $scope.ingredients = [];
+          $scope.itemSelected = false;
+          $scope.categorySelected = true;
+        }
+      });
+    });
+  }
+
+  $('#deleteIngModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-title').text('Delete ' + $scope.selectedItem.name)
+  });
 
 
 });

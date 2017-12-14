@@ -31,6 +31,11 @@ module.exports = function(sequelize, DataTypes) {
 				model: 'InventoryCategory',
 				key: 'id'
 			}
+		},
+		delete_flag: {
+			type: DataTypes.INTEGER(1),
+			allowNull: true,
+			defaultValue: '0'
 		}
 	}, {
 		tableName: 'Inventory',

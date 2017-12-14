@@ -145,7 +145,8 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
         col: col,
         color: "",
         ingredients: [],
-        modifier_template: ""
+        modifier_template: "",
+        editing: false
       }
       //console.log($rootScope.menuItem);
        $location.path("/modify_menu");
@@ -159,6 +160,7 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
         if(response.data != null && response.data != "") {
           console.log(response.data);
           $rootScope.menuItem = response.data;
+          $rootScope.menuItem.editing = true;
         }
         else {
           console.log("Error");

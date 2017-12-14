@@ -4,8 +4,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 
         // home page
         .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'homeController'
+            //templateUrl: 'views/home.html',
+            //controller: 'homeController'
+            templateUrl: 'views/admin_home.html'
         })
 
         // nerds page that will use the NerdController

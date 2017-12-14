@@ -40,7 +40,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/getInvCategory', function(req, res) {
-		models.InventoryCategory.findAll({}).then(function(categories) {
+		models.InventoryCategory.findAll({ where: { delete_flag: false }}).then(function(categories) {
 			if(categories == null) {
 				res.send("Doesn't exist");
 			}
@@ -52,7 +52,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/getInvItem', function(req, res) {
-		models.Inventory.findAll({ where: {inventory_cat_id: req.query.invCatID }}).then(function(inventory) {
+		models.Inventory.findAll({ where: {inventory_cat_id: req.query.invCatID, delete_flag: false }}).then(function(inventory) {
 			if(inventory == null) {
 				res.send("Doesn't exist");
 			}
@@ -60,6 +60,28 @@ module.exports = function(app) {
 				res.send(inventory);
 			}
 
+		});
+	});
+
+	app.get('/deleteInvItem', function(req, res) {
+		models.Inventory.update({delete_flag: true}, { where: {id: req.query.id, delete_flag: false }}).then(function(response) {
+			res.send(response);
+		});
+
+		models.Ingredient.findAll({where: {inventory_id: req.query.id, delete_flag: false}}).then(function(ingredients) {
+			if(ingredients == null) {
+				res.send("Doesn't exist");
+			}
+			else {
+				for(var i = 0; i < ingredients.length; i++) {
+					ingredients[i].delete_flag = true;
+					ingredients[i].save();
+
+					models.MenuItem_to_Ingredient.update( {delete_flag: true}, { where: { Ingredient_id: ingredients[i].id, delete_flag: false } });
+
+					models.Ingredient_to_ModTemp.update( {delete_flag: true}, {where: { ingredient_id: ingredients[i].id, delete_flag: false } });
+				}
+			}
 		});
 	});
 
@@ -97,7 +119,7 @@ module.exports = function(app) {
 	************************************/
 
 	app.get('/getIngItem', function(req, res) {
-		models.Ingredient.findAll({ where: {inventory_cat_id: req.query.invCatID }}).then(function(ingredients) {
+		models.Ingredient.findAll({ where: {inventory_cat_id: req.query.invCatID, delete_flag: false }}).then(function(ingredients) {
 			if(ingredients == null) {
 				res.send("Doesn't exist");
 			}
@@ -108,8 +130,18 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/deleteIngItem', function(req, res) {
+		models.Ingredient.update( {delete_flag: true}, {where: {id: req.query.id, delete_flag: false}});
+
+		models.MenuItem_to_Ingredient.update( {delete_flag: true}, { where: { Ingredient_id: req.query.id, delete_flag: false } });
+
+		models.Ingredient_to_ModTemp.update( {delete_flag: true}, {where: { ingredient_id: req.query.id, delete_flag: false } });
+
+		res.send("success");
+	});
+
 	app.get('/getInvItemByID', function(req, res) {
-		models.Inventory.findOne({ where: {id: req.query.invID }}).then(function(inventory) {
+		models.Inventory.findOne({ where: {id: req.query.invID, delete_flag: false }}).then(function(inventory) {
 			if(inventory == null) {
 				res.send("Doesn't exist");
 			}
@@ -152,7 +184,7 @@ module.exports = function(app) {
 	************************************/
 
 	app.get('/getTemplateNames', function(req, res) {
-		models.ModifierTemplate.findAll({}).then(function(templates) {
+		models.ModifierTemplate.findAll({ where: { delete_flag: false } }).then(function(templates) {
 			if(templates == null) {
 				res.send([]);
 			}
@@ -172,7 +204,8 @@ module.exports = function(app) {
 					inventory_cat_id: req.query.category_id,
 					id: {
 						[Op.notIn]: selectedIngs
-					}
+					},
+					delete_flag: false
 				}
 			}).then(function(ingredients) {
 				if(ingredients == null) {
@@ -188,6 +221,7 @@ module.exports = function(app) {
 			models.Ingredient.findAll({where:
 				{
 					inventory_cat_id: req.query.category_id,
+					delete_flag: false
 				}
 			}).then(function(ingredients) {
 				if(ingredients == null) {
@@ -209,7 +243,8 @@ module.exports = function(app) {
 				{
 					id: {
 						[Op.notIn]: selectedCats
-					}
+					},
+					delete_flag: false
 				}
 			}).then(function(categories) {
 				if(categories == null) {
@@ -222,7 +257,7 @@ module.exports = function(app) {
 			});
 		}
 		else {
-			models.InventoryCategory.findAll({}).then(function(categories) {
+			models.InventoryCategory.findAll({ where: { delete_flag: false } }).then(function(categories) {
 				if(categories == null) {
 					res.send([]);
 				}
@@ -235,7 +270,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/getModTemps', function(req,res) {
-		models.ModifierTemplate.findAll({}).then(function(modTemps) {
+		models.ModifierTemplate.findAll({ where: { delete_flag: false } }).then(function(modTemps) {
 			if(modTemps == null) {
 				res.send([]);
 			}
@@ -245,10 +280,17 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/deleteModTemplate', function(req,res) {
+		models.ModifierTemplate.update({ delete_flag: true }, { where: {id: req.query.id}});
+		models.Ingredient_to_ModTemp.update({ delete_flag: true }, { where: {modtemp_id: req.query.id}});
+		models.MenuItem.update({modifier_template_id: null}, {where: {modifier_template_id: req.query.id} });
+		res.send("Success");
+	});
+
 	app.get('/getModTemp', function(req,res) {
 		var modTempData = {};
 		sequelize.query("SELECT DISTINCT(inventory_cat_id) AS id, InventoryCategory.name FROM Ingredient_to_ModTemp, Ingredient, InventoryCategory WHERE modtemp_id = " +
-						req.query.id.toString() + " AND Ingredient.id = ingredient_id AND inventory_cat_id = InventoryCategory.id", {type: sequelize.QueryTypes.SELECT}).then(function(categories) {
+						req.query.id.toString() + " AND Ingredient.id = ingredient_id AND inventory_cat_id = InventoryCategory.id AND InventoryCategory.delete_flag = false", {type: sequelize.QueryTypes.SELECT}).then(function(categories) {
 
 			if(categories != null) {
 				modTempData.categories = categories;
@@ -256,7 +298,7 @@ module.exports = function(app) {
 		});
 
 		sequelize.query("SELECT ingredient_id, row, col, Ingredient.name AS ingredient_name, Ingredient.inventory_cat_id AS category_id from Ingredient_to_ModTemp, Ingredient WHERE modtemp_id = " +
-						req.query.id.toString() + " AND Ingredient.id = Ingredient_to_ModTemp.ingredient_id", {type: sequelize.QueryTypes.SELECT}).then(function(results) {
+						req.query.id.toString() + " AND Ingredient.id = Ingredient_to_ModTemp.ingredient_id AND Ingredient_to_ModTemp.delete_flag = false", {type: sequelize.QueryTypes.SELECT}).then(function(results) {
 
 			if(results != null) {
 				modTempData.ings = results;
@@ -292,7 +334,7 @@ module.exports = function(app) {
 	});
 
 	app.post('/editModTemplate', function(req,res) {
-		models.ModifierTemplate.update({name: req.query.name}, {where: {id: req.query.id} }).then(function(modTemp) {
+		models.ModifierTemplate.update({name: req.query.name}, {where: {id: req.query.id, delete_flag: false} }).then(function(modTemp) {
 			console.log(modTemp);
 			if(modTemp == null) {
 				res.send("error");
@@ -300,7 +342,7 @@ module.exports = function(app) {
 			else {
 				var ings = JSON.parse(req.query.ingredients);
 
-				models.Ingredient_to_ModTemp.findAll({ where: { modtemp_id: req.query.id } }).then(previous=> {
+				models.Ingredient_to_ModTemp.findAll({ where: { modtemp_id: req.query.id, delete_flag: false } }).then(previous=> {
 
 					for(var x = 0; x < previous.length; x++) {
 						var found = false;
@@ -356,7 +398,7 @@ module.exports = function(app) {
 	});
 
 	app.get('/getMenuCategory', function(req, res) {
-		models.MenuCategory.findAll({}).then(function(categories) {
+		models.MenuCategory.findAll({ where: { delete_flag: false } }).then(function(categories) {
 			if(categories == null) {
 				res.send("Doesn't exist");
 			}
@@ -372,7 +414,8 @@ module.exports = function(app) {
 
 		models.MenuItem.findOne({
 			where: {
-				id: req.query.id
+				id: req.query.id,
+				delete_flag: false
 			}
 		}).then(function(menuItem) {
 			console.log(menuItem);
@@ -383,7 +426,7 @@ module.exports = function(app) {
 	app.get('/getMenuItemIngs', function(req, res) {
 		console.log(req.query);
 
-		sequelize.query("SELECT Ingredient.* From MenuItem_to_Ingredient, Ingredient WHERE Ingredient.id = MenuItem_to_Ingredient.Ingredient_id AND MenuItem_id = " + req.query.id.toString(),
+		sequelize.query("SELECT Ingredient.* From MenuItem_to_Ingredient, Ingredient WHERE Ingredient.delete_flag = false AND Ingredient.id = MenuItem_to_Ingredient.Ingredient_id AND MenuItem_id = " + req.query.id.toString(),
 						{type: sequelize.QueryTypes.SELECT}).then(results=> {
 			console.log(results);
 			res.send(results);
@@ -399,12 +442,30 @@ module.exports = function(app) {
 		// });
 	});
 
+	app.post('/getRemainingMenuIngredients', function(req, res) {
+ 		console.log(req.query);
+		models.Ingredient.findAll({where:
+			{
+				inventory_cat_id: req.query.category,
+				delete_flag: false
+			}
+		}).then(function(ingredients) {
+			if(ingredients == null) {
+				res.send([]);
+			}
+			else {
+				res.send(ingredients);
+			}
+		});
+	});
+
 	app.get('/getMenuItems', function(req, res) {
 		console.log(req.query);
 
 		models.MenuItem.findAll({
 			where: {
-				category_id: req.query.menu_cat_id
+				category_id: req.query.menu_cat_id,
+				delete_flag: false
 			}
 		}).then(function(menuItems) {
 			console.log(menuItems);
@@ -430,6 +491,13 @@ module.exports = function(app) {
 
 	});
 
+	app.get('/deleteMenuItem', function(req, res) {
+		models.MenuItem.update({delete_flag: true}, { where: { id: req.query.id } });
+		models.MenuItem_to_Ingredient.update({delete_flag: true}, { where: { MenuItem_id: req.query.id } });
+		res.send("Success");
+
+	});
+
 	app.post('/editMenuItem', function(req, res) {
 		var ings = JSON.parse(req.query.ingredients);
 		delete(req.query.ingredients);
@@ -438,7 +506,7 @@ module.exports = function(app) {
 			console.log(menuItem);
 		});
 
-		models.MenuItem_to_Ingredient.findAll({ where: { MenuItem_id: req.query.id } }).then(previous=> {
+		models.MenuItem_to_Ingredient.findAll({ where: { MenuItem_id: req.query.id, delete_flag: false } }).then(previous=> {
 
 			// var diff = previous.filter(function(x) { return ings.indexOf(x) < 0 });
 			// if(diff.length == 0) {

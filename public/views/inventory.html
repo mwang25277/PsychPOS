@@ -52,11 +52,34 @@
                 </table>
             </div>
         </div>
+
+
+        <div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteLabel">Delete </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this item? <br> This deletes all Ingredient items associated with it.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteItem()">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="bottom row" style="background-color:white;">
             <a href="/admin_home" role="button" class="btn btn-outline-dark btn-lg" style="background-color:#ffd1d1">Back</a>
             <!-- <a href="/modify_inventory" role="button" class="btn btn-outline-dark" ng-click="deleteCategory()">Delete Category</a> -->
-            <a href="/modify_inventory" role="button" class="btn btn-outline-dark btn-lg" ng-click="editItem()">Edit Item</a>
-            <a href="/modify_inventory" role="button" class="btn btn-outline-dark btn-lg" ng-click="addItem()">Add Item</a>
+            <button type="button" class="btn btn-outline-dark btn-lg" ng-disabled="!categorySelected" ng-click="addItem()">Add Item</a>
+            <button type="button" class="btn btn-outline-dark btn-lg" ng-disabled='!itemSelected' ng-click="editItem()">Edit Item</a>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" ng-disabled="!itemSelected" data-target="#deleteItemModal">Delete Item</a>
+            
         </div>
     </div>    
 </div>

@@ -1,4 +1,4 @@
-angular.module('inventoryCtrl', []).controller('inventoryController', function($rootScope, $scope, $http, $window, loginService) {
+angular.module('inventoryCtrl', []).controller('inventoryController', function($rootScope, $scope, $http, $location, loginService) {
   $scope.userID = "";
 
   $scope.categoryName = "";
@@ -8,6 +8,9 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   $rootScope.inventoryCategory = "";
 
   $scope.inventory = [];
+
+  $scope.itemSelected = false;
+  $scope.categorySelected = false;
 
   $http({
 		url: "/getInvCategory",
@@ -40,6 +43,9 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
 			if(response.data != null && response.data != "") {
 				console.log(response.data);
 				$scope.categories = response.data;
+        $scope.itemSelected = false;
+        $scope.categorySelected = false;
+        $scope.inventory = [];
 			}
 			else {
 				console.log("Error");
@@ -83,7 +89,8 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   	$($event.currentTarget).addClass('active');
   	console.log($event);
   	$rootScope.inventoryCategory = {id: $event.currentTarget.value, name: $event.currentTarget.innerHTML};
-
+    $scope.categorySelected = true;
+    $scope.itemSelected = false;
   	$http({
   		url: "/getInvItem",
   		method: 'get',
@@ -106,6 +113,7 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   	$($event.currentTarget).addClass('table-active');
   	console.log($event);
   	$scope.selectedItem = $scope.inventory[parseInt($event.currentTarget.title)];
+    $scope.itemSelected = true;
   	console.log($scope.selectedItem);
   }
 
@@ -118,6 +126,7 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   		quantity_onhand: "",
   		quantity_needed: ""
   	};
+    $location.path("/modify_inventory");
   }
 
   $scope.editItem = function() {
@@ -129,7 +138,42 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   		quantity_onhand: $scope.selectedItem.quantity_on_hand,
   		quantity_needed: $scope.selectedItem.quantity_needed
   	};
+    $location.path("/modify_inventory");
   }
+
+  $scope.deleteItem = function() {
+    $http({
+      url: "/deleteInvItem",
+      method: 'get',
+      params: { id: $scope.selectedItem.id }
+    }).then(function(response) {
+      $http({
+        url: "/getInvItem",
+        method: 'get',
+        params: { invCatID: $rootScope.inventoryCategory.id }
+      }).then(function(response) {
+        if(response.data != null && response.data != "") {
+          console.log(response.data);
+          $scope.inventory = response.data;
+          $scope.categorySelected = true;
+          $scope.itemSelected = false;
+        }
+        else {
+          $scope.inventory = [];
+          $scope.categorySelected = true;
+          $scope.itemSelected = false;
+        }
+      });
+    });
+  }
+
+  $('#deleteItemModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-title').text('Delete ' + $scope.selectedItem.name)
+  });
 
 
 });

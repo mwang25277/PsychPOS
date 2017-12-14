@@ -37,6 +37,16 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
 
   $scope.createNewTemplate = function() {
   	$scope.creatingNewTemplate = true;
+    $scope.selectedTemplate = "";
+    $("#newTemplateModal").modal('hide');
+
+    for(var i = 1; i < 9; i++) {
+      $("#cat" + i.toString()).html("");
+      $("#cat" + i.toString()).val("");
+    } 
+
+    $scope.availableIngredients = [];
+    $scope.selectedIngredients = [];
 
   	$http({
 	    url: "/getInvCategory",
@@ -57,6 +67,7 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
   $scope.createDupeTemplate = function() {
     $scope.creatingNewTemplate = true;
     $scope.selectedTemplate = "";
+    $("#dupeTemplateModal").modal('hide');
   };
 
   $scope.selectTemplate = function() {
@@ -167,6 +178,7 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
 
   $scope.modifyCategory = function() {
   	console.log($scope.categorySelected);
+    $("#selectCategoryModal").modal('hide');
   	$(".catButton").removeClass("active");
   	var buttonSelected = "#" + $("#whichButton").val();
   	console.log(buttonSelected);
@@ -219,6 +231,7 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
 
   $scope.selectIngredient = function() {
   	//console.log($scope.ingredientSelected);
+    $("#selectIngredientModal").modal('hide');
   	var buttonSelected = $("#whichIngButton").val();
   	var row = parseInt(buttonSelected.substr(3,4));
   	var col = parseInt(buttonSelected.substr(7,8));
@@ -283,11 +296,27 @@ angular.module('modifierTemplateCtrl', []).controller('modifierTemplateControlle
       }).then(function(response) {
         console.log(response);
         if(response.data == "Success") {
-          $route.reload();
+          $scope.templateChosen = false;
         }
       });
     }
 
+  };
+
+  $scope.deleteTemplate = function() {
+
+    $("#deleteTemplateModal").modal('hide');
+
+    $http({
+      url: "/deleteModTemplate",
+      method: 'get',
+      params: { id: $scope.selectedTemplate.id }
+    }).then(function(response) {
+      console.log(response);
+      if(response.data == "Success") {
+        $route.reload();
+      }
+    });
 
   };
 
