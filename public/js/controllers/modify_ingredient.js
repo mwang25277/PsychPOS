@@ -10,6 +10,7 @@ angular.module('modifyIngredientCtrl', []).controller('modifyIngredientControlle
   $scope.inventoryItem = $rootScope.ingredientItem.inventoryItem;
   
   $scope.servingSize = $rootScope.ingredientItem.servingSize;
+  $scope.costPerSvg = $rootScope.ingredientItem.costPerSvg;
   $scope.price = $rootScope.ingredientItem.price;
   $scope.hasNo = $rootScope.ingredientItem.hasNo;
   $scope.noCost = $rootScope.ingredientItem.noCost;
@@ -66,6 +67,7 @@ angular.module('modifyIngredientCtrl', []).controller('modifyIngredientControlle
 	  		inventory_cat_id: $rootScope.ingredientCategory.id,
 	        inventory_id: $scope.inventoryItem.id,
 	  		serving_size: $scope.servingSize,
+	  		cost_per_svg: $scope.costPerSvg,
 	        price: parseFloat($scope.price),
 	  		hasNo: $scope.hasNo,
 	  		noCost: noCost,

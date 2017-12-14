@@ -1,5 +1,5 @@
 <div class=container> 
-    <h1 align="left">Psychedelicatessen</h1>
+    <h1 align="left"><a href="/admin_home" style="color: black;">Psychedelicatessen</a></h1>
     <div class="rounded row borders" style="height:700px;background-color:white;">
         <h3 align="center" style="color:#3f3f3f; margin-left:40%;margin-top:10px;">Ingredient Items</h3>
         <div class="row inv">
@@ -20,6 +20,7 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Serving Size</th>
+                            <th>Cost/Serving</th>
                             <th>Price</th>
                             <th>No</th>
                             <th>Extra</th>
@@ -31,6 +32,7 @@
                             <th scope="row">{{x.id}}</th>
                             <td>{{x.name}}</td>
                             <td>{{x.serving_size}}</td>
+                            <td>${{x.cost_per_svg}}</td>
                             <td>${{x.price | number: 2}}</td>
                             <td>${{x.noCost | number: 2}}</td>
                             <td>${{x.extraCost | number: 2}}</td>

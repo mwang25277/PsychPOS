@@ -18,7 +18,11 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		price: {
 			type: DataTypes.FLOAT,
-			allowNull: false
+			allowNull: true
+		},
+		cost_per_svg: {
+			type: DataTypes.FLOAT,
+			allowNull: true
 		},
 		inventory_id: {
 			type: DataTypes.INTEGER(11),
