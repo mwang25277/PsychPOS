@@ -179,6 +179,7 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
 
 
   $scope.deleteMenuItem = function() {
+    $("#deleteMenuItemModal").modal('hide');
     $http({
       url: "/deleteMenuItem",
       method: 'get',
@@ -187,6 +188,7 @@ angular.module('modifyMenuCtrl', []).controller('modifyMenuController', function
       }
      }).then(function(response) {
       if(response.data != null && response.data != "") {
+        $("#deleteMenuItemModal").modal('hide');
         $location.path("/admin_order")
       }
       else {

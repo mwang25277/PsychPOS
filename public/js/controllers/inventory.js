@@ -12,6 +12,8 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
   $scope.itemSelected = false;
   $scope.categorySelected = false;
 
+  $scope.editCatID = null;
+
   $http({
 		url: "/getInvCategory",
 		method: 'get',
@@ -53,6 +55,35 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
 	    });
    	});
 
+  };
+
+   $scope.editCategory = function() {
+    console.log("here");
+    $http({
+      url: "/editInvCategory",
+      method: 'POST',
+      params: {
+        id: $scope.editCatID,
+        name: $scope.categoryName
+      }
+    }).then(function(response) {
+      $http({
+      url: "/getInvCategory",
+      method: 'get',
+      params: {}
+      }).then(function(response) {
+      if(response.data != null && response.data != "") {
+        console.log(response.data);
+        $scope.categories = response.data;
+        $scope.itemSelected = false;
+        $scope.categorySelected = false;
+        $scope.inventory = [];
+      }
+      else {
+        console.log("Error");
+      }
+      });
+    });
   };
 
   $scope.deleteCategory = function() {
@@ -166,6 +197,33 @@ angular.module('inventoryCtrl', []).controller('inventoryController', function($
       });
     });
   }
+
+  $('#categoryModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+
+    if(button.data('whatever') == "edit") {
+      var id = button.data('id');
+      $scope.editCatID = id;
+      var name = button.data('name');
+      console.log(name);
+      $scope.newCat = false;
+      $scope.categoryName = name;
+      $scope.$apply();
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this);
+      modal.find('.modal-title').text('Edit Category');
+    }
+    else if(button.data('whatever') == "new") {
+      $scope.categoryName = "";
+      $scope.newCat = true;
+      $scope.editCatID = null;
+
+      var modal = $(this);
+      modal.find('.modal-title').text('New Category');
+    }
+
+  });
 
   $('#deleteItemModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal

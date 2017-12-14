@@ -7,22 +7,34 @@
                 <h3 align="center" style="color:#3f3f3f;">Categories</h3>
                 <div id="categories" class="rounded" style="background-color:#f9f9f9;">
                     <div class="btn-group-vertical">
-                        <button type="button" class="btn btn-outline-dark categoryButtons btn-lg" style="margin-left:27px; margin-bottom:3px;margin-top:5px;border-radius:3px;" ng-click="selectCategory($event)" ng-repeat="x in categories" value="{{x.id}}">{{x.name}}</button>
+                        <div class="btn-group" ng-repeat="x in categories">
+                            <button type="button" class="btn btn-outline-dark categoryButtons btn-lg" style="margin-left:10px; margin-bottom:3px;margin-top:5px;border-radius:3px; width: 165px; height: 70px;" ng-click="selectCategory($event)" value="{{x.id}}">{{x.name}}</button>
+                             <button type="button" class="btn btn-outline-dark btn-lg" style="margin-bottom:3px; margin-top:5px; border-radius:3px; width: 70px; height: 70px;" data-whatever="edit" data-id="{{x.id}}" data-name="{{x.name}}" data-toggle="modal" data-target="#categoryModal">Edit</button>
+                         </div>
                     </div>
                 </div>
-                <a href="#" role="button" style="margin-top:5px;margin-left:55px; width: 165px;" class="btn btn-outline-dark btn-lg" data-toggle="modal" data-target="#categoryModal">New Category</a>
+                <a href="#" role="button" style="margin-top:5px;margin-left:55px; width: 165px;" class="btn btn-outline-dark btn-lg" data-whatever="new" data-toggle="modal" data-target="#categoryModal">New Category</a>
                 <div class="modal" id="categoryModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form>
-                                <br>
-                                Enter Category Name:  <input type="text" name="username" ng-model="categoryName"><br>
-                                <br>
-                                <div class="row" style="margin:10px;">
-                                    <input type="submit" class="btn btn-outline-dark" value="Save" data-dismiss="modal" ng-click="addCategory()">
-                                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
-                                </div>
-                            </form>
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteLabel">New Category</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <br>
+                                    Enter Category Name:  <input type="text" name="username" ng-model="categoryName"><br>
+                                    <br>
+                                    <div class="row" style="margin:10px;">
+                                        <input type="submit" class="btn btn-outline-dark" value="Save" data-dismiss="modal" ng-show="newCat" ng-click="addCategory()">
+                                        <input type="submit" class="btn btn-outline-dark" value="Save" data-dismiss="modal" ng-hide="newCat" ng-click="editCategory()">
+                                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>   

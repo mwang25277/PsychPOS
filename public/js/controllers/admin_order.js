@@ -2,6 +2,7 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   $scope.userID = "";
 
   $scope.categoryName = "";
+  $scope.editCatID = null;
 
   $scope.categories = [];
 
@@ -10,6 +11,9 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   $rootScope.menuCategory = "";
 
   $scope.inventory = [];
+
+  $('body').removeClass('modal-open');
+  $('.modal-backdrop').remove();
 
   $http({
 		url: "/getMenuCategory",
@@ -27,6 +31,7 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
 
   $scope.addCategory = function() {
   	console.log("here");
+    $("#categoryModal").modal('hide');
   	$http({
    		url: "/addMenuCategory",
    		method: 'POST',
@@ -48,6 +53,34 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
 			}
 	    });
    	});
+
+  };
+
+  $scope.editCategory = function() {
+    console.log("here");
+    $("#categoryModal").modal('hide');
+    $http({
+      url: "/editMenuCategory",
+      method: 'POST',
+      params: {
+        id: $scope.editCatID,
+        name: $scope.categoryName
+      }
+    }).then(function(response) {
+      $http({
+      url: "/getMenuCategory",
+      method: 'get',
+      params: {}
+      }).then(function(response) {
+      if(response.data != null && response.data != "") {
+        //console.log(response.data);
+        $scope.categories = response.data;
+      }
+      else {
+        console.log("Error");
+      }
+      });
+    });
 
   };
 
@@ -197,5 +230,31 @@ angular.module('adminOrderCtrl', []).controller('adminOrderController', function
   	console.log($scope.selectedItem);
   };
 
+  $('#categoryModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+
+    if(button.data('whatever') == "edit") {
+      var id = button.data('id');
+      $scope.editCatID = id;
+      var name = button.data('name');
+      console.log(name);
+      $scope.newCat = false;
+      $scope.categoryName = name;
+      $scope.$apply();
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this);
+      modal.find('.modal-title').text('Edit Category');
+    }
+    else if(button.data('whatever') == "new") {
+      $scope.categoryName = "";
+      $scope.newCat = true;
+      $scope.editCatID = null;
+
+      var modal = $(this);
+      modal.find('.modal-title').text('New Category');
+    }
+
+  });
 
 });

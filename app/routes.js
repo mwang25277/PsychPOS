@@ -39,6 +39,14 @@ module.exports = function(app) {
 
 	});
 
+	app.post('/editInvCategory', function(req, res) {
+		console.log(req.query.name);
+		models.InventoryCategory.update( {name: req.query.name}, { where: { id: req.query.id } }).then(function(employee) {
+			res.send("Updated");
+		});
+
+	});
+
 	app.get('/getInvCategory', function(req, res) {
 		models.InventoryCategory.findAll({ where: { delete_flag: false }}).then(function(categories) {
 			if(categories == null) {
@@ -393,6 +401,14 @@ module.exports = function(app) {
 			name: req.query.name
 		}).then(function(employee) {
 			res.send("Created");
+		});
+
+	});
+
+	app.post('/editMenuCategory', function(req, res) {
+		console.log(req.query.name);
+		models.MenuCategory.update({ name: req.query.name },{ where: { id: req.query.id } }).then(function(employee) {
+			res.send("Updated");
 		});
 
 	});
